@@ -19,6 +19,13 @@ struct Constants {
     static let ourBorderWidth = CGFloat(3.0)
 }
 
+enum ModelError: Error {
+    case CaptureOutputNotOpen
+    case PhotoSampleBufferNil
+    case InitializeCaptureInputError
+    case JPEGPhotoRepresentationError
+}
+
 // MARK: -
 
 struct MetaDataObjectAndPayload {
@@ -74,6 +81,8 @@ class DetectedObjectOutline {
 
 
 class Model: NSObject, ModelInteractions {
+
+    internal var currentError: ModelError? = nil
 
     // Holds a reference to the videoPreviewLayer
     fileprivate var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -136,7 +145,7 @@ class Model: NSObject, ModelInteractions {
             captureInput = try AVCaptureDeviceInput(device: captureDevice)
         }
         catch let error {
-            print(error)
+            currentError = ModelError.InitializeCaptureInputError
         }
     }
 
@@ -180,12 +189,6 @@ class Model: NSObject, ModelInteractions {
         // Configure layer to resize while maintaining aspect ratio
         videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
 
-        // Set previewLayer to our viewcontroller bounds
-        //videoPreviewLayer?.frame = viewcontroller.fullview.layer.bounds
-
-        // Add the video preview layer as a sublayer to IBOutlet previewView
-        //viewcontroller.attachPreview(preview: videoPreviewLayer!)
-
         return videoPreviewLayer
     }
 
@@ -194,6 +197,7 @@ class Model: NSObject, ModelInteractions {
 
         // Make sure our output is open
         guard let capturePhotoOutput = self.capturePhotoOutput else {
+            currentError = ModelError.CaptureOutputNotOpen
             return
         }
 
@@ -220,12 +224,13 @@ extension Model: AVCapturePhotoCaptureDelegate {
 
         // Make sure there were no errors and the buffer was populated
         guard error == nil, let photoSampleBuffer = photoSampleBuffer else {
-            print("Error capturing photo:\(String(describing: error))")
+            currentError = ModelError.PhotoSampleBufferNil
             return
         }
 
         // Convert photo buffer to jpeg
         guard let imageData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer) else {
+            currentError = ModelError.JPEGPhotoRepresentationError
             return
         }
 
@@ -263,6 +268,7 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
 
 
 extension Model {
+
     // This exposes the AVCaptureVideoPreviewLayer to the ViewController.
     internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
         return videoPreviewLayer
