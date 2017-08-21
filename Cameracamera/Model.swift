@@ -247,59 +247,26 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
                        didOutputMetadataObjects metadataObjects: [Any]!,
                        from connection: AVCaptureConnection!) {
 
-        //DispatchQueue.main.async {
-
-        //if self.lastOutlineViews.count > 0 {
-        // FIXME
-        // the lastOutlineViews are not connected to a superview
-        //_ = self.lastOutlineViews.map{ $0.removeFromSuperview() }
-        // FIXMe
-        //self.lastOutlineViews = nil
-        //self.lastOutlineViews.removeAll()
-        //self.lastOutlineViews.removeAll(keepingCapacity: true)
-        //}
-        //var objects: [MetaDataObjectAndPayload] = []
-
-        //self.metadataCodeObjects = ObservableArray<
+        // Clear out the local variables containing the Meta data Codes
         self.metadataCodeObjects.removeAll()
+
+        // Attach the new meta data codes to the array
         for metadataObject in metadataObjects {
 
             guard let metadataObject = metadataObject as? AVMetadataMachineReadableCodeObject else {
                 continue
             }
             self.metadataCodeObjects.append(metadataObject)
-            // FIXME
-            //let dataAndPayload = MetaDataObjectAndPayload(metaDataObject: (self.videoPreviewLayer?.transformedMetadataObject(for: metadataObj))!, payload: metadataObj.stringValue)
-            //objects.append(dataAndPayload)
         }
-
-        // FIXME
-        //self.lastOutlineViews = self.createOutlineUIViews(objects) as! MutableObservableArray<UIView>
-
-        //}
-    }
-
-
-    internal func createOutlineUIViews(_ objects: [MetaDataObjectAndPayload]) -> ObservableArray<UIView> {
-        
-        var outlineViews = [UIView]()
-        
-        let _ = objects.map { outlineViews.append( DetectedObjectOutline(metaDataObject: $0).uiViewRepresentation!) }
-        
-        return ObservableArray<UIView>(outlineViews)
     }
 }
 
+
 extension Model {
-    
+    // This exposes the AVCaptureVideoPreviewLayer to the ViewController.
     internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
         return videoPreviewLayer
     }
-    
-    //    internal func getOutlines() -> [UIView] {
-    //
-    //        return lastOutlineViews
-    //    }
-    
+
 }
 
