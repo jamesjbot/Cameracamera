@@ -17,11 +17,11 @@ class ViewController: UIViewController {
 
     // MARK: Constants
 
-    private let throttleTime: Double = 0.2
+    private let throttleTime: Double = 0.5
 
     // MARK: Variables
 
-    private var lastDrawnViews = [UIView]()
+    public var lastDrawnViews = [UIView]()
 
     fileprivate var viewModel: ViewModelInteractions?
 
@@ -76,19 +76,39 @@ class ViewController: UIViewController {
 
         // When a change is detected on metadata objects, remove the old objects 
         // and draw the new objects on the view.
-        _ = viewModel?.metadataCodeObjects.throttle(seconds: throttleTime).observeNext {
+
+        _ = viewModel?.lastOutlineViews.observeNext {
 
             [unowned self] event in
 
-            guard let newViews = self.viewModel?.lastOutlineViews.array else {
-                print("Returned because of nil value in newViews")
-                return
+            //print("View controller intercepted View model with \(event.dataSource.count) entries")
+//            print("The change event:\(event.change)")
+//            print("The change kind: \(event.kind)")
+//            print("datasource:\(event.dataSource)")
+//            print("source: \(event.source)")
+            //let newViews = event.dataSource.array
+            print("\nViewController Incoming array count\(event.count)")
+            print("Viewcontroller incoming array: \(event)")
+            let newViews = event.dataSource
+            //            else {
+//                print("Returned because of nil value in newViews")
+//                return
+//            }
+
+            if event.count > 0 {
+                print("ViewController Found something")
+            } else {
+                print("ViewController Attaching no views")
             }
 
             self.detachOld(outlines: self.lastDrawnViews)
             self.lastDrawnViews.removeAll()
-            self.attach(these: newViews, to: self.view)
             self.lastDrawnViews = newViews
+            guard newViews.count > 0 else {
+                return
+            }
+            self.attach(these: newViews, to: self.view.window!)
+            print("Exit ViewController\n")
         }
     }
 
@@ -104,7 +124,6 @@ class ViewController: UIViewController {
     // Add the video preview layer as a sublayer to IBOutlet previewView
     func attachPreview(preview videoPreview: AVCaptureVideoPreviewLayer) -> UIView {
 
-        print("You're attachingPreview")
         captureVideoPreviewLayer = videoPreview
 
         guard captureVideoPreviewLayer != nil else {
@@ -114,6 +133,7 @@ class ViewController: UIViewController {
         // Set previewLayer to our viewcontroller bounds
         captureVideoPreviewLayer?.frame = self.mainView.layer.bounds
 
+        // Attach the captureVideoPreview to our previewView
         DispatchQueue.main.async {
             self.previewView.layer.addSublayer(self.captureVideoPreviewLayer!)
         }
@@ -135,33 +155,46 @@ extension ViewController: AlertWindowDisplaying {
 
 extension ViewController {
 
-    fileprivate func attach(these outlines: [UIView], to view: UIView) {
-        
+    fileprivate func attach(these outlines: [UIView], to superView: UIView) {
+        for view in outlines {
+            print("Viewcontroller attach Space")
+            print("Viewcontroller frame \(view.frame)")
+        }
         DispatchQueue.main.async {
-            let _ = outlines.map { view.addSubview($0) }
+            print("Attached new views")
+//            for view in outlines {
+//                print("Bounds: \(view.bounds)")
+//            }
+            let _ = outlines.map { superView.addSubview($0) }
         }
     }
 
     fileprivate func detachOld(outlines: [UIView]) {
 
         DispatchQueue.main.async {
+            print("View controller Remove new views")
             _ = outlines.map { $0.removeFromSuperview() }
         }
     }
-
-    class DependencyInjector {
-
-        static func attachViewModel(to viewcontroller: ViewController) -> ViewController {
-
-            let model = Model()
-            let viewModel = ViewModel(model)
-            viewcontroller.viewModel = viewModel
-            return viewcontroller
-        }
-    }
-
 }
 
+
+class DependencyInjector {
+
+    static func attachViewModel(to viewcontroller: ViewController, viewModel: ViewModel? = nil) -> ViewController {
+
+        var _viewmodel: ViewModel?
+        if viewModel == nil {
+            let model = Model()
+            _viewmodel = ViewModel(model)
+        } else {
+            _viewmodel = viewModel
+        }
+
+        viewcontroller.viewModel = _viewmodel
+        return viewcontroller
+    }
+}
 
 
 

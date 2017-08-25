@@ -34,51 +34,6 @@ struct MetaDataObjectAndPayload {
     var payload: String
 }
 
-// MARK: -
-
-class DetectedObjectOutline {
-
-    var uiViewRepresentation: UIView?
-
-    init(metaDataObject: MetaDataObjectAndPayload) {
-
-            let bounds = metaDataObject.metaDataObject.bounds
-            self.uiViewRepresentation = UIView(frame: CGRect(x: (bounds.minX),
-                                                        y: ((bounds.minY) + Constants.offset),
-                                                        width: ((bounds.width) * Constants.scaling),
-                                                        height: ((bounds.height) * Constants.scaling))
-            )
-            self.uiViewRepresentation?.layer.borderColor = Constants.ourBorderColor
-            self.uiViewRepresentation?.layer.borderWidth = Constants.ourBorderWidth
-
-            // Displays the type of code
-            let typeLabel = UILabel()
-            typeLabel.attributedText = NSAttributedString(string: metaDataObject.metaDataObject.type!)
-            typeLabel.textColor = UIColor.green
-            typeLabel.backgroundColor = UIColor.gray
-            typeLabel.adjustsFontSizeToFitWidth = true
-
-            // Displays the encoded information
-            let contentLabel = UILabel()
-            contentLabel.attributedText = (NSAttributedString(string: metaDataObject.payload))
-            contentLabel.textColor = UIColor.cyan
-            contentLabel.backgroundColor = UIColor.gray
-            contentLabel.adjustsFontSizeToFitWidth = true
-
-            // Organize their presentation
-            let stackView = UIStackView(arrangedSubviews: [typeLabel,contentLabel])
-            stackView.axis = .vertical
-            stackView.alignment = .center
-            stackView.distribution = .equalSpacing
-            if let bounds = self.uiViewRepresentation?.bounds {
-                stackView.frame = bounds
-            }
-
-            // Attach them to the view
-            self.uiViewRepresentation?.addSubview(stackView)
-    }
-}
-
 
 class Model: NSObject, ModelInteractions {
 
@@ -98,8 +53,8 @@ class Model: NSObject, ModelInteractions {
     private var captureMetaDataOutput: AVCaptureMetadataOutput?
 
     // Inputs for photo
-    var captureDevice: AVCaptureDevice?
-    var captureInput: AVCaptureInput?
+    private var captureDevice: AVCaptureDevice?
+    private var captureInput: AVCaptureInput?
 
     // MARK: Functions
 
@@ -218,6 +173,8 @@ class Model: NSObject, ModelInteractions {
 }
 
 
+// MARK: - AVCapturePhotoCaptureDelegate
+
 extension Model: AVCapturePhotoCaptureDelegate {
 
     func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
@@ -245,6 +202,7 @@ extension Model: AVCapturePhotoCaptureDelegate {
     }
 }
 
+// MARK: - AVCaptureMetadataOutputObjectsDelegate
 
 extension Model: AVCaptureMetadataOutputObjectsDelegate {
 
@@ -266,6 +224,7 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
     }
 }
 
+// MARK: - Helper Methods
 
 extension Model {
 

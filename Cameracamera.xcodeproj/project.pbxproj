@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5417F88F3B828427BDE04EBA /* Pods_Cameracamera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30227C38ED37AD6D874CB78 /* Pods_Cameracamera.framework */; };
+		A71853981F4FB5C7006269CC /* ModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853971F4FB5C7006269CC /* ModelProtocol.swift */; };
+		A718539A1F4FB5FD006269CC /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */; };
 		A724E8141F425B30001649CA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A724E8131F425B30001649CA /* ViewModel.swift */; };
 		A725B2FD1F4A7A910027B153 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725B2FC1F4A7A910027B153 /* AlertWindow.swift */; };
 		A725B2FF1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725B2FE1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift */; };
@@ -20,6 +22,8 @@
 		A755B5151F3A37CB003DB962 /* CameracameraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B5141F3A37CB003DB962 /* CameracameraTests.swift */; };
 		A755B5201F3A37CB003DB962 /* CameracameraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B51F1F3A37CB003DB962 /* CameracameraUITests.swift */; };
 		A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76ED2A91F3BC07B00C2446A /* Model.swift */; };
+		A7B53C101F4F393300AE05E2 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */; };
+		A7B53C121F4F962800AE05E2 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B53C111F4F962800AE05E2 /* Bond.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,8 @@
 /* Begin PBXFileReference section */
 		2418BA348F3829E61340BA44 /* Pods-Cameracamera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cameracamera.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cameracamera/Pods-Cameracamera.release.xcconfig"; sourceTree = "<group>"; };
 		91321786F397197D8E6FE6C5 /* Pods-Cameracamera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cameracamera.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cameracamera/Pods-Cameracamera.debug.xcconfig"; sourceTree = "<group>"; };
+		A71853971F4FB5C7006269CC /* ModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelProtocol.swift; sourceTree = "<group>"; };
+		A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		A724E8131F425B30001649CA /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		A725B2FC1F4A7A910027B153 /* AlertWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
 		A725B2FE1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBUIKitMainThreadGuard.swift; sourceTree = "<group>"; };
@@ -60,6 +66,8 @@
 		A755B51F1F3A37CB003DB962 /* CameracameraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameracameraUITests.swift; sourceTree = "<group>"; };
 		A755B5211F3A37CB003DB962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A76ED2A91F3BC07B00C2446A /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
+		A7B53C111F4F962800AE05E2 /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = "DerivedData/Cameracamera/Build/Products/Debug-iphoneos/Bond/Bond.framework"; sourceTree = "<group>"; };
 		E30227C38ED37AD6D874CB78 /* Pods_Cameracamera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cameracamera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -76,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7B53C121F4F962800AE05E2 /* Bond.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				A724E8131F425B30001649CA /* ViewModel.swift */,
+				A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -110,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				A76ED2A91F3BC07B00C2446A /* Model.swift */,
+				A71853971F4FB5C7006269CC /* ModelProtocol.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -157,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				A755B5141F3A37CB003DB962 /* CameracameraTests.swift */,
+				A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */,
 				A755B5161F3A37CB003DB962 /* Info.plist */,
 			);
 			path = CameracameraTests;
@@ -183,6 +195,7 @@
 		E0156B76BB083F35B3F6EFC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7B53C111F4F962800AE05E2 /* Bond.framework */,
 				E30227C38ED37AD6D874CB78 /* Pods_Cameracamera.framework */,
 			);
 			name = Frameworks;
@@ -376,12 +389,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A725B2FD1F4A7A910027B153 /* AlertWindow.swift in Sources */,
+				A71853981F4FB5C7006269CC /* ModelProtocol.swift in Sources */,
 				A724E8141F425B30001649CA /* ViewModel.swift in Sources */,
 				A755B4FF1F3A37CB003DB962 /* ViewController.swift in Sources */,
 				A755B5051F3A37CB003DB962 /* Cameracamera.xcdatamodeld in Sources */,
 				A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */,
 				A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */,
 				A725B2FF1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift in Sources */,
+				A718539A1F4FB5FD006269CC /* ViewModelProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7B53C101F4F393300AE05E2 /* ViewModelTests.swift in Sources */,
 				A755B5151F3A37CB003DB962 /* CameracameraTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,6 +587,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 57N49ZFXV9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DerivedData/Cameracamera/Build/Products/Debug-iphoneos/Bond",
+				);
 				INFOPLIST_FILE = CameracameraTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JamesJongs.CameracameraTests;
@@ -586,6 +606,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 57N49ZFXV9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DerivedData/Cameracamera/Build/Products/Debug-iphoneos/Bond",
+				);
 				INFOPLIST_FILE = CameracameraTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JamesJongs.CameracameraTests;
