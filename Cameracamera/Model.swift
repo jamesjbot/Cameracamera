@@ -148,7 +148,7 @@ class Model: NSObject, ModelInteractions {
     }
 
 
-    func savePhoto() {
+    func savePhoto(_ completion: ((Bool)->())? = nil ) {
 
         // Make sure our output is open
         guard let capturePhotoOutput = self.capturePhotoOutput else {

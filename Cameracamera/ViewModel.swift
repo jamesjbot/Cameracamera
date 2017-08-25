@@ -18,12 +18,6 @@ import Bond
 import ReactiveKit
 
 
-protocol CapturePhoto {
-    var metadataCodeObjects: ObservableArray<AVMetadataMachineReadableCodeObject> { get }
-    func savePhoto()
-}
-
-
 struct ViewModelConstants {
     static let THROTTLE_TIME = 1.0
     static let NUMBER_OF_STORED_OUTLINE_SETS = 3
@@ -121,14 +115,13 @@ class ViewModel : ViewModelInteractions {
         print("Veiwmodel createoutlineView returning \(outlineViews.count)")
         return outlineViews
     }
-}
 
-extension ViewModel: CapturePhoto {
+    // Tell the model to save photo of the metadata
+    internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
 
-    internal func savePhoto() {
-
-        model?.savePhoto()
+        model?.savePhoto(nil)
     }
+
 }
 
 

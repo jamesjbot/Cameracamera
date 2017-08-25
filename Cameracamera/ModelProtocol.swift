@@ -14,5 +14,5 @@ protocol ModelInteractions {
 
     var metadataCodeObjects: MutableObservableArray<AVMetadataMachineReadableCodeObject> { get }
     func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer?
-    func savePhoto()
+    func savePhoto(_ completion: ((Bool)->())?)
 }

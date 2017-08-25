@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     // MARK: IBAction
 
     @IBAction func takePhoto(_ sender: Any) {
-        viewModel?.savePhoto()
+        viewModel?.savePhoto(nil)
     }
 
 

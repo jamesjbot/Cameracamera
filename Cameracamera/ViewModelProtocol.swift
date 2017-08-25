@@ -14,8 +14,6 @@ protocol ViewModelInteractions {
     var lastOutlineViews: Observable<[UIView]> { get set }
 
     func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer?
-    //func getOutlines() -> [UIView]
-    func savePhoto()
+    func savePhoto(_ completion: ((Bool)->())?)
     var metadataCodeObjects: ObservableArray<AVMetadataMachineReadableCodeObject> { get }
-    //func savePhoto()
 }
