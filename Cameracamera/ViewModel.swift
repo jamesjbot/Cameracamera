@@ -7,9 +7,8 @@
 //
 
 
-// This is the ViewModel
-// It manages whether the Outline of the Code should or should not be shown.
-
+// This ViewModel manages the formating of view for the viewcontroller to show.
+// This model manages show or removing views
 
 import Foundation
 import UIKit
@@ -21,10 +20,12 @@ import ReactiveKit
 struct ViewModelConstants {
     static let THROTTLE_TIME = 1.0
     static let NUMBER_OF_STORED_OUTLINE_SETS = 3
+    static let MARGIN_VALUE: CGFloat = CGFloat(15.0)
 }
 
 
 class ViewModel : ViewModelInteractions {
+
     var lastOutlineViews:Observable<[UIView]> = Observable([])
 
     var arrayContainingLastDictionaries: [[String:DetectedObjectOutline]] = []
@@ -60,6 +61,7 @@ class ViewModel : ViewModelInteractions {
                 //self.createOutlineUIViews(objects).array as! MutableObservableArray<UIView>
         }
     }
+
 
     private func createOutlineUIViews(_ objects: [MetaDataObjectAndPayload]) -> [UIView] {
 
@@ -102,6 +104,7 @@ class ViewModel : ViewModelInteractions {
         print("Veiwmodel createoutlineView returning \(outlineViews.count)")
         return outlineViews
     }
+
 
     // Tell the model to save photo of the metadata
     internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
