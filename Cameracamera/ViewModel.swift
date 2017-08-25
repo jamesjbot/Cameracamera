@@ -31,7 +31,7 @@ class ViewModel : ViewModelInteractions {
     var currentDictionaryOfView: [String: UIView] = [:]
     var model: ModelInteractions?
     //var lastOutlineViews = Observable<[UIView]>([])
-    internal var metadataCodeObjects = ObservableArray<AVMetadataMachineReadableCodeObject>([])
+    //internal var metadataCodeObjects = ObservableArray<AVMetadataMachineReadableCodeObject>([])
 
     init(_ model: ModelInteractions) {
         self.model = model
@@ -43,23 +43,10 @@ class ViewModel : ViewModelInteractions {
         _ = model?.metadataCodeObjects.observeNext {
             [unowned self] event in
 
-            self.metadataCodeObjects = event.source 
-
-            var objects: [MetaDataObjectAndPayload] = []
-
-            for metadataObject in self.metadataCodeObjects {
-
-                let dataAndPayload = MetaDataObjectAndPayload(metaDataObject: (self.getCaptureVideoPreviewLayer()?.transformedMetadataObject(for: metadataObject))!, payload: metadataObject.stringValue)
-                objects.append(dataAndPayload)
-            }
+            var objects: [MetaDataObjectAndPayload] = event.source.array
 
             print(objects.count)
-            // Convert machine code objects to UIView outlines
-//            guard objects.count > 0 else {
-//                //self.lastOutlineViews.removeAll()
-//                return
-//            }
-            //self.lastOutlineViews.repl
+
             let views = self.createOutlineUIViews(objects)
             print("Viewmodel Replacing lastOutlineView with \(views.count)")
             let output = self.lastOutlineViews.replace(with: views)

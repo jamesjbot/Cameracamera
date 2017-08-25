@@ -12,7 +12,7 @@ import Bond
 
 protocol ModelInteractions {
 
-    var metadataCodeObjects: MutableObservableArray<AVMetadataMachineReadableCodeObject> { get }
+    var metadataCodeObjects: MutableObservableArray<MetaDataObjectAndPayload> { get }
     func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer?
     func savePhoto(_ completion: ((Bool)->())?)
 }

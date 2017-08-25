@@ -43,7 +43,7 @@ class Model: NSObject, ModelInteractions {
     fileprivate var videoPreviewLayer: AVCaptureVideoPreviewLayer?
 
     // Metadata Objects from capture
-    internal var metadataCodeObjects = MutableObservableArray<AVMetadataMachineReadableCodeObject>([])
+    internal var metadataCodeObjects = MutableObservableArray<MetaDataObjectAndPayload>([])
 
     // Helps transfer data between one or more device inputs
     private var captureSession: AVCaptureSession?
@@ -209,18 +209,26 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
     func captureOutput(_ captureOutput: AVCaptureOutput!,
                        didOutputMetadataObjects metadataObjects: [Any]!,
                        from connection: AVCaptureConnection!) {
+        
+        var accumulatedAVMetadata = [MetaDataObjectAndPayload]()
 
-        // Clear out the local variables containing the Meta data Codes
-        self.metadataCodeObjects.removeAll()
-
-        // Attach the new meta data codes to the array
+        // Convert AVMetadataMachineReadableCodeObjects into AVMetaDataObect and a string
         for metadataObject in metadataObjects {
 
             guard let metadataObject = metadataObject as? AVMetadataMachineReadableCodeObject else {
                 continue
             }
-            self.metadataCodeObjects.append(metadataObject)
+
+            // Convert from VideoPreview coordinates to UIKit coordinates
+            let convertedObject = (self.getCaptureVideoPreviewLayer()?.transformedMetadataObject(for: metadataObject))!
+            let dataAndPayload = MetaDataObjectAndPayload(metaDataObject: convertedObject,
+                                                          payload: metadataObject.stringValue)
+
+            accumulatedAVMetadata.append(dataAndPayload)
         }
+
+        // Attach the new meta data codes to the observable array
+        metadataCodeObjects.replace(with: accumulatedAVMetadata)
     }
 }
 

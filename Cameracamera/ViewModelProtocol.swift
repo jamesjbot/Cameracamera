@@ -15,5 +15,5 @@ protocol ViewModelInteractions {
 
     func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer?
     func savePhoto(_ completion: ((Bool)->())?)
-    var metadataCodeObjects: ObservableArray<AVMetadataMachineReadableCodeObject> { get }
+    //var metadataCodeObjects: ObservableArray<AVMetadataMachineReadableCodeObject> { get }
 }
