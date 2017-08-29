@@ -108,7 +108,6 @@ class ViewController: UIViewController {
                 return
             }
             self.attach(these: newViews, to: self.view.window!)
-            print("Exit ViewController\n")
         }
     }
 
@@ -157,11 +156,10 @@ extension ViewController {
 
     fileprivate func attach(these outlines: [UIView], to superView: UIView) {
         for view in outlines {
-            print("Viewcontroller attach Space")
-            print("Viewcontroller frame \(view.frame)")
+            //print("Viewcontroller attach Space")
+            //print("Viewcontroller frame \(view.frame)")
         }
         DispatchQueue.main.async {
-            print("Attached new views")
 //            for view in outlines {
 //                print("Bounds: \(view.bounds)")
 //            }
@@ -169,29 +167,23 @@ extension ViewController {
         }
     }
 
+    // FIXME: Completely Remove
     fileprivate func detachOld(outlines: [UIView]) {
-
-        DispatchQueue.main.async {
-            print("View controller Remove new views")
-            _ = outlines.map { $0.removeFromSuperview() }
-        }
     }
 }
 
 
 class DependencyInjector {
 
-    static func attachViewModel(to viewcontroller: ViewController, viewModel: ViewModel? = nil) -> ViewController {
+    static func attachViewModel(to viewcontroller: ViewController, viewModel: ViewModelInteractions? = nil) -> ViewController {
 
-        var _viewmodel: ViewModel?
         if viewModel == nil {
             let model = Model()
-            _viewmodel = ViewModel(model)
+            viewcontroller.viewModel = ViewModel(model)
         } else {
-            _viewmodel = viewModel
+            viewcontroller.viewModel = viewModel
         }
 
-        viewcontroller.viewModel = _viewmodel
         return viewcontroller
     }
 }
