@@ -11,9 +11,9 @@ import Bond
 import AVFoundation
 
 protocol ViewModelInteractions {
+
     var lastOutlineViews: Observable<[UIView]> { get set }
 
     func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer?
     func savePhoto(_ completion: ((Bool)->())?)
-    //var metadataCodeObjects: ObservableArray<AVMetadataMachineReadableCodeObject> { get }
 }
