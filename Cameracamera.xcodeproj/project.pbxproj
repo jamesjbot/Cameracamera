@@ -21,6 +21,7 @@
 		A755B50A1F3A37CB003DB962 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A755B5081F3A37CB003DB962 /* LaunchScreen.storyboard */; };
 		A755B5151F3A37CB003DB962 /* CameracameraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B5141F3A37CB003DB962 /* CameracameraTests.swift */; };
 		A755B5201F3A37CB003DB962 /* CameracameraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B51F1F3A37CB003DB962 /* CameracameraUITests.swift */; };
+		A75EA5501F50D35D004D42D1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75EA54F1F50D35D004D42D1 /* Constants.swift */; };
 		A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76ED2A91F3BC07B00C2446A /* Model.swift */; };
 		A7B53C101F4F393300AE05E2 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */; };
 		A7B53C121F4F962800AE05E2 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B53C111F4F962800AE05E2 /* Bond.framework */; };
@@ -65,6 +66,7 @@
 		A755B51B1F3A37CB003DB962 /* CameracameraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CameracameraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A755B51F1F3A37CB003DB962 /* CameracameraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameracameraUITests.swift; sourceTree = "<group>"; };
 		A755B5211F3A37CB003DB962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A75EA54F1F50D35D004D42D1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../Constants.swift; sourceTree = "<group>"; };
 		A76ED2A91F3BC07B00C2446A /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		A7B53C111F4F962800AE05E2 /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = "DerivedData/Cameracamera/Build/Products/Debug-iphoneos/Bond/Bond.framework"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		A755B4FB1F3A37CB003DB962 /* Cameracamera */ = {
 			isa = PBXGroup;
 			children = (
+				A75EA54F1F50D35D004D42D1 /* Constants.swift */,
 				A725B2FE1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift */,
 				A755B4FC1F3A37CB003DB962 /* AppDelegate.swift */,
 				A725B2F91F48E09D0027B153 /* ViewController */,
@@ -393,6 +396,7 @@
 				A724E8141F425B30001649CA /* ViewModel.swift in Sources */,
 				A755B4FF1F3A37CB003DB962 /* ViewController.swift in Sources */,
 				A755B5051F3A37CB003DB962 /* Cameracamera.xcdatamodeld in Sources */,
+				A75EA5501F50D35D004D42D1 /* Constants.swift in Sources */,
 				A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */,
 				A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */,
 				A725B2FF1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift in Sources */,

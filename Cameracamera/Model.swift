@@ -12,12 +12,7 @@ import Bond
 
 // MARK: -
 
-struct Constants {
-    static let offset = CGFloat(20)
-    static let scaling = CGFloat(1.02)
-    static let ourBorderColor = UIColor.red.cgColor
-    static let ourBorderWidth = CGFloat(3.0)
-}
+
 
 enum ModelError: Error {
     case CaptureOutputNotOpen
