@@ -24,7 +24,7 @@ struct ViewModelConstants {
 }
 
 
-class ViewModel : ViewModelInteractions {
+class ViewModel {
 
     var lastOutlineViews:Observable<[UIView]> = Observable([])
 
@@ -104,7 +104,16 @@ class ViewModel : ViewModelInteractions {
         print("Veiwmodel createoutlineView returning \(outlineViews.count)")
         return outlineViews
     }
+}
 
+
+// MARK: - ViewModelInteractions Protocol
+
+extension ViewModel: ViewModelInteractions {
+
+    internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
+        return model?.getCaptureVideoPreviewLayer()
+    }
 
     // Tell the model to save photo of the metadata
     internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
