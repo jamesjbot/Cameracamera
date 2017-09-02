@@ -17,8 +17,6 @@ class ViewController: UIViewController {
 
     // MARK: Constants
 
-    private let throttleTime: Double = 0.5
-
     // MARK: Variables
 
     public var lastDrawnViews = [UIView]()
