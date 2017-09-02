@@ -25,6 +25,7 @@
 		A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76ED2A91F3BC07B00C2446A /* Model.swift */; };
 		A7B53C101F4F393300AE05E2 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */; };
 		A7B53C121F4F962800AE05E2 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B53C111F4F962800AE05E2 /* Bond.framework */; };
+		A7DD42D81F5886BC00E97073 /* DetectedObjectOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DD42D71F5886BC00E97073 /* DetectedObjectOutline.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		A76ED2A91F3BC07B00C2446A /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		A7B53C111F4F962800AE05E2 /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = "DerivedData/Cameracamera/Build/Products/Debug-iphoneos/Bond/Bond.framework"; sourceTree = "<group>"; };
+		A7DD42D71F5886BC00E97073 /* DetectedObjectOutline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectedObjectOutline.swift; sourceTree = "<group>"; };
 		E30227C38ED37AD6D874CB78 /* Pods_Cameracamera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cameracamera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 		A725B2FA1F48E0A50027B153 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A7DD42D71F5886BC00E97073 /* DetectedObjectOutline.swift */,
 				A724E8131F425B30001649CA /* ViewModel.swift */,
 				A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */,
 			);
@@ -397,6 +400,7 @@
 				A755B4FF1F3A37CB003DB962 /* ViewController.swift in Sources */,
 				A755B5051F3A37CB003DB962 /* Cameracamera.xcdatamodeld in Sources */,
 				A75EA5501F50D35D004D42D1 /* Constants.swift in Sources */,
+				A7DD42D81F5886BC00E97073 /* DetectedObjectOutline.swift in Sources */,
 				A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */,
 				A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */,
 				A725B2FF1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift in Sources */,

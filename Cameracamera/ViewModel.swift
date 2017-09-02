@@ -35,13 +35,29 @@ protocol OutlineManager {
 
 class ViewModel {
 
-    var lastOutlineViews:Observable<[UIView]> = Observable([])
+    // MARK: Variables
 
-    var arrayContainingLastDictionaries: [[String:DetectedObjectOutline]] = []
-    var currentDictionaryOfView: [String: UIView] = [:]
-    var model: ModelInteractions?
-    //var lastOutlineViews = Observable<[UIView]>([])
-    //internal var metadataCodeObjects = ObservableArray<AVMetadataMachineReadableCodeObject>([])
+    private var backingInt = Int.min
+    private var outlineProcessingCycleID: Int {
+        get {
+            if backingInt >= Int.max-1 {
+                backingInt = Int.min
+            }
+            backingInt += 1
+            return backingInt
+        }
+    }
+
+    // Holds all the outlines that are being displayed
+    fileprivate var dictionaryOfDistinctStringPayload: [String:[DetectedObjectOutline]] = [:]
+
+    // Holds all the new outlines that need to be displayed
+    internal var lastOutlineViews:Observable<[UIView]> = Observable([])
+
+    fileprivate var model: ModelInteractions?
+
+
+// MARK: Functions
 
     init(_ model: ModelInteractions) {
         self.model = model
@@ -59,65 +75,98 @@ class ViewModel {
 
             [unowned self] event in
 
-            var objects: [MetaDataObjectAndPayload] = event.source.array
+            let objects: [MetaDataObjectAndPayload] = event.source.array
 
-            print(objects.count)
+            let processingID = self.outlineProcessingCycleID
+            SwiftyBeaver.verbose("\n_________________\nViewModel \(#function) observer iteration: \(processingID) with \(objects.count) objects")
 
-            let views = self.createOutlineUIViews(objects)
-            print("Viewmodel Replacing lastOutlineView with \(views.count)")
-            let output = self.lastOutlineViews.replace(with: views)
-            self.lastOutlineViews.value = views
-            print("Viewmodel Before  leaving this is what lastOutlineViews has\(self.lastOutlineViews.value.count)")
-            //self.lastOutlineViews.
-            //let something = self.lastOutlineViews.replace(with: ObservableArray<UIView>(self.createOutlineUIViews(objects))).
-            //print(type(of: something))
-            //self.lastOutlineViews = ObservableArray<UIView>(self.createOutlineUIViews(objects))
+            // Clean out all previous views so we don't resend them to the ViewController
+            //: - Note: This will instantly call the viewcontroller's bindViewModel
+            self.lastOutlineViews.value.removeAll(keepingCapacity: true)
 
-                //self.createOutlineUIViews(objects).array as! MutableObservableArray<UIView>
+            self.processEveryMetadataObject(objects: objects)
+
+            // By replacing this value the signal will fire and the observer can see the changes
+            //self.lastOutlineViews.value = views
+            SwiftyBeaver.verbose("\nViewModel \(#function) observer iteration:\(processingID) complete!\n^^^^^^^^^^^^^^^^^^^\n")
         }
     }
 
 
-    private func createOutlineUIViews(_ objects: [MetaDataObjectAndPayload]) -> [UIView] {
+    /**
+     This will process every metadata objects
 
-        print("Viewmodel createOutline received \(objects.count)")
+     - Note: This is where you will want to add future code types or feature processing
+     - Parameter objects: And array of [MetaDataObjectAndPayload]
 
+     */
+    internal func processEveryMetadataObject(objects :[MetaDataObjectAndPayload]) {
 
-        var dictionaryOfView = [String:DetectedObjectOutline]()
-        var outlineViews = [UIView]()
+        for object in objects {
+            let outlineCharacteristics =
+                DetectedObjectCharacteristics(payload: object.payload,
+                                              origin: object.metaDataObject.bounds,
+                                              codeType: object.metaDataObject.type)
 
-            for object in objects {
+            let duplicateOutline = self.getDuplicateOutline(withCharacteristics: outlineCharacteristics)
 
-                let outlineandPayload = DetectedObjectOutline(metaDataObject: object)
-                    dictionaryOfView[outlineandPayload.decodedPayload!] = outlineandPayload
-                    outlineViews.append(outlineandPayload.uiViewRepresentation!)
+            if duplicateOutline == nil {
+
+                let _ = self.createNewOutlineInCollection(withCharacteristics: outlineCharacteristics)
             }
+            else // We have a this outline already present and accounted for.
+            {
+                // Rest the items death timer
+                duplicateOutline?.keepAlive = true
+            }
+        }
+    }
 
-        // Prune off old dictionaries
-        if arrayContainingLastDictionaries.count >= ViewModelConstants.NUMBER_OF_STORED_OUTLINE_SETS {
-            arrayContainingLastDictionaries.removeFirst()
+
+    /**
+     This function will create the outline and place it in the dictionary for tracking.
+
+     - Parameters:
+        - withCharacteristics: Is the characteristics you want for the outline.
+     - Returns: Returns the newly created outline
+     */
+    internal func createNewOutlineInCollection(withCharacteristics characteristics: DetectedObjectCharacteristics) -> DetectedObjectOutline? {
+
+        // Create an outline from the characteristics
+        let targetOutline = DetectedObjectOutline(characteristics: characteristics, viewModel: self)
+
+        // Save the outline in our system.
+        self.put(thisNew: targetOutline,
+                 into: self.dictionaryOfDistinctStringPayload)
+
+        // Add the view to the queue for display in the viewcontroller
+        self.lastOutlineViews.value.append(targetOutline.uiViewRepresentation!)
+
+        return targetOutline
+    }
+
+
+    /**
+     This method places the outline into the outline manager
+
+     - Parameters:
+        - thisNew: Is the Detected Outline
+        - into: Is the dictionary you want to place the object into.
+     */
+    private func put(thisNew input: DetectedObjectOutline, into dictionaryOfOutlineArrays: [String:[DetectedObjectOutline]]) {
+
+        let payload = input.decodedPayload
+
+        // We must have a array representing the loctions of the payload (QRCode)
+        guard dictionaryOfOutlineArrays[payload] != nil else {
+            // Create a new array of qrcode locations for a particular payload (QRCode)
+            // And add the DetectedOutline to nit to the dictionary
+            dictionaryOfDistinctStringPayload[payload] = [input]
+            return
         }
 
-        // Add the new dictionary
-        arrayContainingLastDictionaries.append(dictionaryOfView)
-
-        // Rebuild a list of outlines from last groups shown
-        var outputDictionary = [String:DetectedObjectOutline]()
-//        for groupOfOutlines in arrayContainingLastDictionaries {
-//            for outlineAndPayload in groupOfOutlines {
-//                outputDictionary[outlineAndPayload.key] = outlineAndPayload.value
-//            }
-//        }
-
-        print("Viewmodel Output dictionary has \(outputDictionary.count)")
-
-            //_ = objects.map { outlineViews.append( DetectedObjectOutline(metaDataObject: $0).uiViewRepresentation!) }
-        var justViews = [UIView]()
-        for outlineAndPayload in outputDictionary.values {
-            justViews.append(outlineAndPayload.uiViewRepresentation!)
-        }
-        print("Veiwmodel createoutlineView returning \(outlineViews.count)")
-        return outlineViews
+        // Array for a particular payload already exists, just append the new outline to the array
+        dictionaryOfDistinctStringPayload[payload]?.append(input)
     }
 }
 
@@ -147,63 +196,8 @@ extension ViewModel: ViewModelInteractions {
     internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
         
         model?.savePhoto(nil)
-    }
-
-}
-
-
-extension ViewModel {
-
-    internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
-        return model?.getCaptureVideoPreviewLayer()
-    }
-
-    internal func getOutlines() -> [UIView] {
-        return [UIView()]
-    }
-}
-
-
-// MARK: - Helper Struct
-
-struct DetectedObjectOutline {
-
-    var uiViewRepresentation: UIView? = nil
-    var decodedPayload: String? = nil
-
-    init(metaDataObject: MetaDataObjectAndPayload) {
-
-        let bounds = metaDataObject.metaDataObject.bounds
-        self.uiViewRepresentation = UIView(frame: CGRect(x: (bounds.minX),
-                                                         y: ((bounds.minY) + Constants.offset),
-                                                         width: ((bounds.width) * Constants.scaling),
-                                                         height: ((bounds.height) * Constants.scaling))
-        )
-        self.uiViewRepresentation?.layer.borderColor = Constants.ourBorderColor
-        self.uiViewRepresentation?.layer.borderWidth = Constants.ourBorderWidth
-
-        // Displays the type of code
-        let typeLabel = UILabel()
-        typeLabel.attributedText = NSAttributedString(string: metaDataObject.metaDataObject.type!)
-        typeLabel.textColor = UIColor.green
-        typeLabel.backgroundColor = UIColor.gray
-        typeLabel.adjustsFontSizeToFitWidth = true
-
-        // Displays the encoded information
-        let contentLabel = UILabel()
-        contentLabel.attributedText = (NSAttributedString(string: metaDataObject.payload))
-        contentLabel.textColor = UIColor.cyan
-        contentLabel.backgroundColor = UIColor.gray
-        contentLabel.adjustsFontSizeToFitWidth = true
-        decodedPayload = metaDataObject.payload
-
-        // Organize their presentation
-        let stackView = UIStackView(arrangedSubviews: [typeLabel,contentLabel])
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        if let bounds = self.uiViewRepresentation?.bounds {
-            stackView.frame = bounds
+        if let completion = completion {
+            completion(true)
         }
     }
 }
