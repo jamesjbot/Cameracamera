@@ -83,6 +83,7 @@ class Model: NSObject {
     }
 
 
+    /// Initialize the capture device and connect it to the capture input
     func initializeCaptureInputs() {
 
         // Create a capture device
@@ -109,7 +110,7 @@ class Model: NSObject {
     }
 
 
-    /// Put the all capture ourput initialization here
+    /// This method sets up all the outputs.
     func initializeCaptureOutputs() {
 
         // Create a capture output for our capture session
@@ -121,6 +122,7 @@ class Model: NSObject {
     }
 
 
+    ///
     func attachOutputsToCaptureSession() {
 
         // Attach output to capture session
@@ -129,6 +131,7 @@ class Model: NSObject {
     }
 
 
+    /// This will create a preview layer for the viewcontroller.
     private func makeVideoPreviewViewLayer() -> AVCaptureVideoPreviewLayer? {
 
         // Configure previewView
@@ -211,7 +214,7 @@ extension Model: ModelInteractions {
         return videoPreviewLayer
     }
 
-
+    /// This will save a photo of the current image to the photoalbum.
     internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
 
         // Make sure our output is open
