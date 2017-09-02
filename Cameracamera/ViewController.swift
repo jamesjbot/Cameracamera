@@ -82,20 +82,7 @@ class ViewController: UIViewController {
             [unowned self] event in
             SwiftyBeaver.info("\nViewController received \(event.count) new views")
             let newViews = event.dataSource
-            //            else {
-//                print("Returned because of nil value in newViews")
-//                return
-//            }
 
-            if event.count > 0 {
-                print("ViewController Found something")
-            } else {
-                print("ViewController Attaching no views")
-            }
-
-            self.detachOld(outlines: self.lastDrawnViews)
-            self.lastDrawnViews.removeAll()
-            self.lastDrawnViews = newViews
             guard newViews.count > 0 else {
                 return
             }
@@ -108,6 +95,27 @@ class ViewController: UIViewController {
 
         if let preview = viewModel?.getCaptureVideoPreviewLayer() {
             _ = attachPreview(preview: preview)
+        }
+    }
+}
+
+
+extension ViewController: AlertWindowDisplaying {
+
+    func display(error: String) -> Bool {
+        DispatchQueue.main.async {
+            self.displayAlertWindow(title: "Error", msg: error)
+        }
+        return true
+    }
+}
+
+
+extension ViewController {
+
+    fileprivate func attach(these outlines: [UIView], to superView: UIView) {
+        DispatchQueue.main.async {
+            let _ = outlines.map { superView.addSubview($0) }
         }
     }
 
@@ -130,37 +138,6 @@ class ViewController: UIViewController {
         }
 
         return previewView
-    }
-}
-
-
-extension ViewController: AlertWindowDisplaying {
-    func display(error: String) -> Bool {
-        DispatchQueue.main.async {
-            self.displayAlertWindow(title: "Error", msg: error)
-        }
-        return true
-    }
-}
-
-
-extension ViewController {
-
-    fileprivate func attach(these outlines: [UIView], to superView: UIView) {
-        for view in outlines {
-            //print("Viewcontroller attach Space")
-            //print("Viewcontroller frame \(view.frame)")
-        }
-        DispatchQueue.main.async {
-//            for view in outlines {
-//                print("Bounds: \(view.bounds)")
-//            }
-            let _ = outlines.map { superView.addSubview($0) }
-        }
-    }
-
-    // FIXME: Completely Remove
-    fileprivate func detachOld(outlines: [UIView]) {
     }
 }
 
