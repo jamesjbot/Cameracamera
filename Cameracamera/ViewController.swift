@@ -25,7 +25,7 @@ class ViewController: UIViewController {
 
     fileprivate var viewModel: ViewModelInteractions?
 
-    private var captureVideoPreviewLayer: AVCaptureVideoPreviewLayer?
+    fileprivate var captureVideoPreviewLayer: AVCaptureVideoPreviewLayer?
 
     // MARK: IBOutlets
 
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
 
 
     // Add the video preview layer as a sublayer to IBOutlet previewView
-    func attachPreview(preview videoPreview: AVCaptureVideoPreviewLayer) -> UIView {
+    fileprivate func attachPreview(preview videoPreview: AVCaptureVideoPreviewLayer) -> UIView {
 
         captureVideoPreviewLayer = videoPreview
 
