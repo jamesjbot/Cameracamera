@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5417F88F3B828427BDE04EBA /* Pods_Cameracamera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30227C38ED37AD6D874CB78 /* Pods_Cameracamera.framework */; };
-		A71853981F4FB5C7006269CC /* ModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853971F4FB5C7006269CC /* ModelProtocol.swift */; };
-		A718539A1F4FB5FD006269CC /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */; };
+		A71853981F4FB5C7006269CC /* ModelInteractionsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853971F4FB5C7006269CC /* ModelInteractionsProtocol.swift */; };
+		A718539A1F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853991F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift */; };
 		A724E8141F425B30001649CA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A724E8131F425B30001649CA /* ViewModel.swift */; };
 		A725B2FD1F4A7A910027B153 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725B2FC1F4A7A910027B153 /* AlertWindow.swift */; };
 		A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B4FC1F3A37CB003DB962 /* AppDelegate.swift */; };
@@ -47,8 +47,8 @@
 /* Begin PBXFileReference section */
 		2418BA348F3829E61340BA44 /* Pods-Cameracamera.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cameracamera.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cameracamera/Pods-Cameracamera.release.xcconfig"; sourceTree = "<group>"; };
 		91321786F397197D8E6FE6C5 /* Pods-Cameracamera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cameracamera.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cameracamera/Pods-Cameracamera.debug.xcconfig"; sourceTree = "<group>"; };
-		A71853971F4FB5C7006269CC /* ModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelProtocol.swift; sourceTree = "<group>"; };
-		A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		A71853971F4FB5C7006269CC /* ModelInteractionsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInteractionsProtocol.swift; sourceTree = "<group>"; };
+		A71853991F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelInteractionsProtocol.swift; sourceTree = "<group>"; };
 		A724E8131F425B30001649CA /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		A725B2FC1F4A7A910027B153 /* AlertWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
 		A755B4F91F3A37CB003DB962 /* Cameracamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cameracamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +114,7 @@
 			children = (
 				A7DD42D71F5886BC00E97073 /* DetectedObjectOutline.swift */,
 				A724E8131F425B30001649CA /* ViewModel.swift */,
-				A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */,
+				A71853991F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -123,7 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				A76ED2A91F3BC07B00C2446A /* Model.swift */,
-				A71853971F4FB5C7006269CC /* ModelProtocol.swift */,
+				A71853971F4FB5C7006269CC /* ModelInteractionsProtocol.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -392,7 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A725B2FD1F4A7A910027B153 /* AlertWindow.swift in Sources */,
-				A71853981F4FB5C7006269CC /* ModelProtocol.swift in Sources */,
+				A71853981F4FB5C7006269CC /* ModelInteractionsProtocol.swift in Sources */,
 				A724E8141F425B30001649CA /* ViewModel.swift in Sources */,
 				A755B4FF1F3A37CB003DB962 /* ViewController.swift in Sources */,
 				A755B5051F3A37CB003DB962 /* Cameracamera.xcdatamodeld in Sources */,
@@ -400,7 +400,7 @@
 				A7DD42D81F5886BC00E97073 /* DetectedObjectOutline.swift in Sources */,
 				A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */,
 				A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */,
-				A718539A1F4FB5FD006269CC /* ViewModelProtocol.swift in Sources */,
+				A718539A1F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
