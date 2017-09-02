@@ -9,18 +9,24 @@
 
 // This ViewModel manages the formating of view for the viewcontroller to show.
 // This model manages show or removing views
+// It managed the state of the outlines so they can stay on screen longer and not flicker.
 
 import Foundation
 import UIKit
 import AVFoundation
 import Bond
 import ReactiveKit
+import SwiftyBeaver
 
 
-struct ViewModelConstants {
-    static let THROTTLE_TIME = 1.0
-    static let NUMBER_OF_STORED_OUTLINE_SETS = 3
-    static let MARGIN_VALUE: CGFloat = CGFloat(15.0)
+// MARK: -
+
+// MARK: -
+// MARK: Outline Manager Protocol
+
+protocol OutlineManager {
+    func deleteDetectedOutline(_ detectedOuline: DetectedObjectOutline) -> Bool
+    func getDuplicateOutline(withCharacteristics characteristics: DetectedObjectCharacteristics) -> DetectedObjectOutline?
 }
 
 
@@ -177,76 +183,83 @@ struct DetectedObjectOutline {
         if let bounds = self.uiViewRepresentation?.bounds {
             stackView.frame = bounds
         }
-
-        // Attach them to the view
-        self.uiViewRepresentation?.addSubview(stackView)
     }
 }
 
 
 // MARK: -
-class Outline {
+// MARK: OutlineManager Protocol Extension
 
+extension ViewModel: OutlineManager {
 
-    // MARK: Constants
+    /**
+     This method deletes an outline from the collection
 
-    let MAXIMUM_ONSCREEN_DURATION = 0.5
-    let ORIGIN_MEASUREMENT_ERROR_RANGE = 0.01
+     - Parameters: The Outline you would like to delete
+     - Returns: A boolean indication success 'true' or failure 'false'
+     - Note: Currently any qrcode with the exact same payload will be save in the exact same sub-collection
+     */
+    internal func deleteDetectedOutline(_ detectedOuline: DetectedObjectOutline) -> Bool {
 
-    // MARK: Variables
+        // Make sure the array containing the duplicate string payloads exists
+        guard let array = dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload] else {
+            return false
+        }
 
-    var startTime = ProcessInfo.processInfo.systemUptime
-    var outline: UIView?
-    var decodedStringPaylod: String?
+        // Remove the whole array from the dictionary if there is only 1 outline in it
+        if (array.count) == 1 {
+            dictionaryOfDistinctStringPayload.removeValue(forKey: detectedOuline.decodedPayload)
+            return true
+        }
 
-    // MARK: Methods
+        // Remove the exact outline from the multiple same payloads in the dictionary
+        let closure: (DetectedObjectOutline) -> (Bool) = {($0.similar(toCharacteristics: detectedOuline.characteristics!))}
 
-    init(_ outline: UIView, payload: String) {
-        self.outline = outline
-        decodedStringPaylod = payload
-    }
-
-
-    func hasExceededOnScreenDuration() -> Bool {
-        let currentTime = ProcessInfo.processInfo.systemUptime
-        if startTime + MAXIMUM_ONSCREEN_DURATION >= currentTime {
+        // Remove the outline at the desired position
+        if let index = dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload]?
+            .index(where: closure) {
+            dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload]?.remove(at: index)
             return true
         }
         return false
     }
 
 
-    func isEqual(_ input: Outline) -> Bool {
+    /**
+     This function searches thru the dictionary to return an outline matching
+     the position and payload provided by the parameters.
 
-        // Check payload is the same
-        guard decodedStringPaylod == input.decodedStringPaylod else {
-            return false
-        }
+     - Parameters:
+        - withCharacteristics: The detected object characteristics you are looking for
+        - juice: The type of juice you like to drink
+     - Returns: The DetectedObjectOutline or nil
+     */
+    internal func getDuplicateOutline(withCharacteristics characteristics: DetectedObjectCharacteristics) -> DetectedObjectOutline? {
 
-        // Check origin position is close
-        guard let x = outline?.frame.origin.x else {
-            return false
-        }
-        var low = x * CGFloat( 1 - ORIGIN_MEASUREMENT_ERROR_RANGE )
-        var high = x * CGFloat( 1 + ORIGIN_MEASUREMENT_ERROR_RANGE )
-        guard low...high ~= (input.outline?.frame.origin.x)! else {
-            return false
-        }
+        let payload = characteristics.payload
 
-        guard let y = outline?.frame.origin.y else {
-            return false
-        }
-        low = y * CGFloat( 1 - ORIGIN_MEASUREMENT_ERROR_RANGE )
-        high = y * CGFloat( 1 + ORIGIN_MEASUREMENT_ERROR_RANGE )
-        guard low...high ~= (input.outline?.frame.origin.y)! else {
-            return false
+        // We must have a array representing the loctions of the payload (QRCode)
+        // This array contains the exact same qr codes at different locations
+        guard let arrayOfSamePayloadOutlines = dictionaryOfDistinctStringPayload[payload] else {
+            return nil
         }
 
-        return true
+        // Match the first outline with the same outline characteristics
+        for outline in arrayOfSamePayloadOutlines {
+            if outline.characteristics == characteristics {
+                return outline
+            }
+        }
+        SwiftyBeaver.verbose("Failed to find a duplicate Outline")
+        return nil
     }
-
-
 }
+
+
+
+
+
+
 
 
 
