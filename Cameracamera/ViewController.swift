@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-
+import SwiftyBeaver
 
 // MARK: -
 
@@ -80,15 +80,7 @@ class ViewController: UIViewController {
         _ = viewModel?.lastOutlineViews.observeNext {
 
             [unowned self] event in
-
-            //print("View controller intercepted View model with \(event.dataSource.count) entries")
-//            print("The change event:\(event.change)")
-//            print("The change kind: \(event.kind)")
-//            print("datasource:\(event.dataSource)")
-//            print("source: \(event.source)")
-            //let newViews = event.dataSource.array
-            print("\nViewController Incoming array count\(event.count)")
-            print("Viewcontroller incoming array: \(event)")
+            SwiftyBeaver.info("\nViewController received \(event.count) new views")
             let newViews = event.dataSource
             //            else {
 //                print("Returned because of nil value in newViews")
