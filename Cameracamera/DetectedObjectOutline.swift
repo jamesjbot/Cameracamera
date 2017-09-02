@@ -98,6 +98,7 @@ class DetectedObjectOutline: Hashable, CustomStringConvertible {
         SwiftyBeaver.info("Deinitialize called on DetectedObjectOutline \(description)")
     }
 
+
     init(characteristics: DetectedObjectCharacteristics, viewModel: ViewModel) {
 
         self.characteristics = characteristics
@@ -113,13 +114,20 @@ class DetectedObjectOutline: Hashable, CustomStringConvertible {
     }
     
 
+    /// This function allows us to compare DetectedObjectOutline
+    /// This is so we can confrom to equatable
     static func ==(lhs: DetectedObjectOutline, rhs: DetectedObjectOutline) -> Bool {
         return lhs.characteristics == rhs.characteristics
     }
 }
 
+
 extension DetectedObjectOutline: SelfTerminatingDrawableOutline {
 
+    /**
+     This function allows use to check if the outline matches a specific characteristic
+     - Parameter toCharacteristics: The characteristics of the outline to match to
+     */
     func similar(toCharacteristics: DetectedObjectCharacteristics) -> Bool {
         return characteristics == toCharacteristics
     }
@@ -127,6 +135,10 @@ extension DetectedObjectOutline: SelfTerminatingDrawableOutline {
 
 extension DetectedObjectOutline {
 
+    /**
+     This make the UIView for onscreen presentation
+     - Parameter with: This is the characteristics you want to load this outline with
+     */
     fileprivate func setupUIViewRepresentation(with characteristics: DetectedObjectCharacteristics) {
 
         let bounds = characteristics.origin
@@ -151,6 +163,7 @@ extension DetectedObjectOutline {
     }
 
 
+    /// This create the code type label telling the user what type of code they are looking at.
     fileprivate func createCodeTypeLabel(withCharacteristics characteristics:
 
         DetectedObjectCharacteristics) -> UILabel {
@@ -164,6 +177,7 @@ extension DetectedObjectOutline {
     }
 
 
+    /// This creates the label with the string that is encoded in the code.
     fileprivate func createPayloadLabel(withCharacteristics characteristics: DetectedObjectCharacteristics) -> UILabel {
 
         // Displays the encoded information
@@ -177,6 +191,7 @@ extension DetectedObjectOutline {
     }
 
 
+    /// This creates the stackview we populate with labels.
     fileprivate func createStackView(arrangedLabels: [UILabel]) -> UIStackView {
 
         let stackView = UIStackView(arrangedSubviews: arrangedLabels)
@@ -192,6 +207,8 @@ extension DetectedObjectOutline {
     }
 
 
+    /// This function is called from inside the timer block 
+    /// It will remove the outline from the internal dictionary as well as the superview
     fileprivate func removeOutlineFromSuperviewAndRemoveFromViewModel() {
 
         DispatchQueue.main.async {
@@ -206,7 +223,7 @@ extension DetectedObjectOutline {
     }
 
 
-    /// Creates
+    /// Creates the new timer that will eventually remove this outline form the view.
     fileprivate func setNewTimer() {
 
         let timerCompletionBlock: (Timer) -> () = {
