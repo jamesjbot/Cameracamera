@@ -12,7 +12,6 @@
 		A718539A1F4FB5FD006269CC /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */; };
 		A724E8141F425B30001649CA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A724E8131F425B30001649CA /* ViewModel.swift */; };
 		A725B2FD1F4A7A910027B153 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725B2FC1F4A7A910027B153 /* AlertWindow.swift */; };
-		A725B2FF1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725B2FE1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift */; };
 		A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B4FC1F3A37CB003DB962 /* AppDelegate.swift */; };
 		A755B4FF1F3A37CB003DB962 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B4FE1F3A37CB003DB962 /* ViewController.swift */; };
 		A755B5021F3A37CB003DB962 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A755B5001F3A37CB003DB962 /* Main.storyboard */; };
@@ -52,7 +51,6 @@
 		A71853991F4FB5FD006269CC /* ViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		A724E8131F425B30001649CA /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		A725B2FC1F4A7A910027B153 /* AlertWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
-		A725B2FE1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NBUIKitMainThreadGuard.swift; sourceTree = "<group>"; };
 		A755B4F91F3A37CB003DB962 /* Cameracamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cameracamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A755B4FC1F3A37CB003DB962 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A755B4FE1F3A37CB003DB962 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				A75EA54F1F50D35D004D42D1 /* Constants.swift */,
-				A725B2FE1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift */,
 				A755B4FC1F3A37CB003DB962 /* AppDelegate.swift */,
 				A725B2F91F48E09D0027B153 /* ViewController */,
 				A725B2FA1F48E0A50027B153 /* ViewModel */,
@@ -403,7 +400,6 @@
 				A7DD42D81F5886BC00E97073 /* DetectedObjectOutline.swift in Sources */,
 				A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */,
 				A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */,
-				A725B2FF1F4A7EF60027B153 /* NBUIKitMainThreadGuard.swift in Sources */,
 				A718539A1F4FB5FD006269CC /* ViewModelProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

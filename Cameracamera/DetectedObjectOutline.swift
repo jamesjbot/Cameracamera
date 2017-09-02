@@ -3,7 +3,7 @@
 //  Cameracamera
 //
 //  Created by James Jongsurasithiwat on 8/31/17.
-//  Copyright © 2017 James Jongs. All rights reserved.
+//  Copyright © 2017 James Jongsurasithiwat. All rights reserved.
 //
 
 import Foundation

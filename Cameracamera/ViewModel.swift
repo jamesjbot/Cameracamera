@@ -3,7 +3,7 @@
 //  Cameracamera
 //
 //  Created by James Jongsurasithiwat on 8/14/17.
-//  Copyright © 2017 James Jongs. All rights reserved.
+//  Copyright © 2017 James Jongsurasithiwat. All rights reserved.
 //
 
 
@@ -19,8 +19,6 @@ import Bond
 import ReactiveKit
 import SwiftyBeaver
 
-
-// MARK: -
 
 // MARK: -
 // MARK: Outline Manager Protocol
