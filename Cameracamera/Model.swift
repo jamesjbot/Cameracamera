@@ -103,7 +103,8 @@ class Model: NSObject {
     func initializeMetaDataCaptureProperties() {
 
         // Specify the types of metadata you want to identify
-        captureMetaDataOutput?.metadataObjectTypes = [AVMetadataObjectTypeQRCode]//[AVMetadataObjectTypeAztecCode,AVMetadataObjectTypeFace,AVMetadataObjectTypeQRCode,AVMetadataObjectTypeUPCECode,AVMetadataObjectTypeCode128Code,AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeEAN13Code,AVMetadataObjectTypePDF417Code]
+        captureMetaDataOutput?.metadataObjectTypes = [AVMetadataObjectTypeQRCode,AVMetadataObjectTypeAztecCode]
+        // For future implementatin here are the other codes we can scan for [,AVMetadataObjectTypeFace,AVMetadataObjectTypeQRCode,AVMetadataObjectTypeUPCECode,AVMetadataObjectTypeCode128Code,AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeEAN13Code,AVMetadataObjectTypePDF417Code]
 
         // Set youself to capture metadata.
         captureMetaDataOutput?.setMetadataObjectsDelegate(self, queue: DispatchQueue.global(qos: .userInteractive))
