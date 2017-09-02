@@ -4,15 +4,18 @@ PODS:
     - ReactiveKit (~> 3.5.3)
   - Diff (0.5.3)
   - ReactiveKit (3.5.3)
+  - SwiftyBeaver (1.2.1)
 
 DEPENDENCIES:
   - Bond (~> 6.0)
+  - SwiftyBeaver
 
 SPEC CHECKSUMS:
   Bond: 0d7a52e9aec644c3b4985ceeb224a402b1efd691
   Diff: befa1d19c32726b2b36ce915d98793e2fbde8dcc
   ReactiveKit: 39a0723167d04107140cf540f04526deecd18891
+  SwiftyBeaver: f29dc64b0ae619d73ee94fd04bd532f895765208
 
-PODFILE CHECKSUM: d0a0c2bb0791b79eb346cfcd0e2f447cde1fe3b5
+PODFILE CHECKSUM: 2c25297f17173d48654aaae6bf19a4708a78841a
 
 COCOAPODS: 1.2.0
