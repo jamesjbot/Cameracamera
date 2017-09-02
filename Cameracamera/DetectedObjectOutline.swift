@@ -111,13 +111,7 @@ class DetectedObjectOutline: Hashable, CustomStringConvertible {
         // Start a new timer to delete the outline after a certain amount of time
         setNewTimer()
     }
-
-
-    func isSimilar(to outline: DetectedObjectOutline) -> Bool {
-        return characteristics == outline.characteristics
-    }
-
-
+    
 
     static func ==(lhs: DetectedObjectOutline, rhs: DetectedObjectOutline) -> Bool {
         return lhs.characteristics == rhs.characteristics
