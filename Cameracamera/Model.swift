@@ -12,8 +12,6 @@ import Bond
 
 // MARK: -
 
-
-
 enum ModelError: Error {
     case CaptureOutputNotOpen
     case PhotoSampleBufferNil
@@ -30,7 +28,7 @@ struct MetaDataObjectAndPayload {
 }
 
 
-class Model: NSObject, ModelInteractions {
+class Model: NSObject {
 
     internal var currentError: ModelError? = nil
 
@@ -44,7 +42,7 @@ class Model: NSObject, ModelInteractions {
     private var captureSession: AVCaptureSession?
 
     // Output for photo
-    private var capturePhotoOutput: AVCapturePhotoOutput?
+    fileprivate var capturePhotoOutput: AVCapturePhotoOutput?
     private var captureMetaDataOutput: AVCaptureMetadataOutput?
 
     // Inputs for photo
@@ -141,30 +139,6 @@ class Model: NSObject, ModelInteractions {
 
         return videoPreviewLayer
     }
-
-
-    func savePhoto(_ completion: ((Bool)->())? = nil ) {
-
-        // Make sure our output is open
-        guard let capturePhotoOutput = self.capturePhotoOutput else {
-            currentError = ModelError.CaptureOutputNotOpen
-            return
-        }
-
-        // Create capture settings
-        let photoSettings = AVCapturePhotoSettings()
-
-        // Set the capture settings
-        photoSettings.isAutoStillImageStabilizationEnabled = true
-        photoSettings.isHighResolutionPhotoEnabled = true
-
-        // Set flash depending on device, Ipad Air 2 currently
-        photoSettings.flashMode = .off
-
-        // Call the capture photo and register to receive captured photo
-        capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
-
-    }
 }
 
 
@@ -227,14 +201,38 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
     }
 }
 
-// MARK: - Helper Methods
+// MARK: - 
+// MARK: Protocol Methods
 
-extension Model {
+extension Model: ModelInteractions {
 
-    // This exposes the AVCaptureVideoPreviewLayer to the ViewController.
+    /// This exposes the AVCaptureVideoPreviewLayer to the ViewController.
     internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
         return videoPreviewLayer
     }
 
+
+    internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
+
+        // Make sure our output is open
+        guard let capturePhotoOutput = self.capturePhotoOutput else {
+            currentError = ModelError.CaptureOutputNotOpen
+            return
+        }
+
+        // Create capture settings
+        let photoSettings = AVCapturePhotoSettings()
+
+        // Set the capture settings
+        photoSettings.isAutoStillImageStabilizationEnabled = true
+        photoSettings.isHighResolutionPhotoEnabled = true
+
+        // Set flash depending on device, Ipad Air 2 currently
+        photoSettings.flashMode = .off
+
+        // Call the capture photo and register to receive captured photo
+        capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
+        
+    }
 }
 
