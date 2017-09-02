@@ -8,8 +8,9 @@
 
 
 // This ViewModel manages the formating of view for the viewcontroller to show.
-// This model manages show or removing views
+// This model manages showing views
 // It managed the state of the outlines so they can stay on screen longer and not flicker.
+// The views will automatically remove themselves
 
 import Foundation
 import UIKit
@@ -30,6 +31,8 @@ protocol OutlineManager {
 }
 
 
+// MARK: -
+
 class ViewModel {
 
     var lastOutlineViews:Observable<[UIView]> = Observable([])
@@ -45,9 +48,15 @@ class ViewModel {
         bindModel()
     }
 
+
+    /**
+     This function binds the ViewModel to the Model via its observable variable
+     Whenever the varaible is change we receive it and process the newly recognozed objects
+     */
     private func bindModel() {
 
         _ = model?.metadataCodeObjects.observeNext {
+
             [unowned self] event in
 
             var objects: [MetaDataObjectAndPayload] = event.source.array
@@ -113,17 +122,30 @@ class ViewModel {
 }
 
 
-// MARK: - ViewModelInteractions Protocol
+// MARK: - ViewModelInteractions Protocol Extension
 
 extension ViewModel: ViewModelInteractions {
 
+
+    /**
+     Get a preview layer for display on the viewcontroller     - Attention:
+
+     - Returns: Returns a reference to the PreviewLayer owned by the model
+     */
     internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
         return model?.getCaptureVideoPreviewLayer()
     }
+    
 
-    // Tell the model to save photo of the metadata
+    /**
+     Tell the model to save photo of the metadata without markup
+     - Parameter completion: A Completion handler to call after we initiated the
+     save.
+     - Attention: **This will not save the outliens.**
+     - ToDo: Implement a version of this to save outlines too.
+     */
     internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
-
+        
         model?.savePhoto(nil)
     }
 
