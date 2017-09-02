@@ -46,7 +46,6 @@ struct DetectedObjectCharacteristics: Equatable {
 // MARK: -
 
 
-
 protocol SelfTerminatingDrawableOutline {
 
     var characteristics: DetectedObjectCharacteristics? {get}
@@ -202,7 +201,7 @@ extension DetectedObjectOutline {
     fileprivate func removeOutlineFromSuperviewAndRemoveFromViewModel() {
 
         DispatchQueue.main.async {
-            self.viewModelContainingThis?.deleteDetectedOutline(self)
+            let _ = self.viewModelContainingThis?.deleteDetectedOutline(self)
             
             assert(self.viewModelContainingThis?.getDuplicateOutline(withCharacteristics: self.characteristics!) == nil)
 

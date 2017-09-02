@@ -93,7 +93,7 @@ class Model: NSObject {
         do {
             captureInput = try AVCaptureDeviceInput(device: captureDevice)
         }
-        catch let error {
+        catch _ {
             currentError = ModelError.InitializeCaptureInputError
         }
     }
