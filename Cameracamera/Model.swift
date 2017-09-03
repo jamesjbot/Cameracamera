@@ -193,7 +193,10 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
             }
 
             // Convert from VideoPreview coordinates to UIKit coordinates
-            let convertedObject = (self.getCaptureVideoPreviewLayer()?.transformedMetadataObject(for: metadataObject))!
+            guard let convertedObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObject) else {
+                continue
+            }
+
             let dataAndPayload = MetaDataObjectAndPayload(metaDataObject: convertedObject,
                                                           payload: metadataObject.stringValue)
 
@@ -205,15 +208,31 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
     }
 }
 
-// MARK: - 
+
+// MARK: -
+// MARK: AVCapturePreviewProvider Protocol
+extension Model: AVCapturePreviewProvider {
+
+    /**
+     Attaches an AVCapture preview layer to whatever would like it
+
+     - Returns: Returns a reference to the PreviewLayer owned by the model
+     */
+    func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver? {
+        
+        if let videoPreview = videoPreviewLayer {
+            return toReceiver.attach(preview: videoPreview)
+        }
+        return nil
+
+    }
+}
+
+
+// MARK: -
 // MARK: Protocol Methods
 
 extension Model: ModelInteractions {
-
-    /// This exposes the AVCaptureVideoPreviewLayer to the ViewController.
-    internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
-        return videoPreviewLayer
-    }
 
     /// This will save a photo of the current image to the photoalbum.
     internal func savePhoto(_ completion: ((Bool)->())? = nil ) {

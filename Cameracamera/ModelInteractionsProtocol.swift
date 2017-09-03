@@ -10,9 +10,9 @@ import Foundation
 import AVFoundation
 import Bond
 
-protocol ModelInteractions {
+protocol ModelInteractions: AVCapturePreviewProvider {
 
     var metadataCodeObjects: MutableObservableArray<MetaDataObjectAndPayload> { get }
-    func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer?
+
     func savePhoto(_ completion: ((Bool)->())?)
 }

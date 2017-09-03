@@ -12,6 +12,11 @@ import SwiftyBeaver
 
 // MARK: -
 
+protocol AVCapturePreviewReceiver {
+    func attach(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver?
+}
+
+
 @IBDesignable
 class ViewController: UIViewController {
 
@@ -91,9 +96,7 @@ class ViewController: UIViewController {
 
     func initializePreviewLayer() {
 
-        if let preview = viewModel?.getCaptureVideoPreviewLayer() {
-            _ = attachPreview(preview: preview)
-        }
+        _ = viewModel?.attachAVCapturePreview(toReceiver: self)
     }
 }
 
@@ -116,15 +119,17 @@ extension ViewController {
             let _ = outlines.map { superView.addSubview($0) }
         }
     }
+}
 
+extension ViewController: AVCapturePreviewReceiver {
 
     // Add the video preview layer as a sublayer to IBOutlet previewView
-    fileprivate func attachPreview(preview videoPreview: AVCaptureVideoPreviewLayer) -> UIView {
+    func attach(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver? {
 
         captureVideoPreviewLayer = videoPreview
 
         guard captureVideoPreviewLayer != nil else {
-            return UIView()
+            return nil
         }
 
         // Set previewLayer to our viewcontroller bounds
@@ -135,7 +140,7 @@ extension ViewController {
             self.previewView.layer.addSublayer(self.captureVideoPreviewLayer!)
         }
 
-        return previewView
+        return self
     }
 }
 

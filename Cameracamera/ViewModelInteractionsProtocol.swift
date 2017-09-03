@@ -10,10 +10,14 @@ import Foundation
 import Bond
 import AVFoundation
 
-protocol ViewModelInteractions {
+protocol ViewModelInteractions: AVCapturePreviewProvider {
 
     var lastOutlineViews: Observable<[UIView]> { get set }
 
-    func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer?
     func savePhoto(_ completion: ((Bool)->())?)
+}
+
+protocol AVCapturePreviewProvider {
+
+    func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver?
 }

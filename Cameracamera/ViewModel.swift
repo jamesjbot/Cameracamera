@@ -169,18 +169,19 @@ class ViewModel {
 }
 
 
-// MARK: - ViewModelInteractions Protocol Extension
+// MARK: -
+// MARK: AVCapturePreviewProvider Extension
 
-extension ViewModel: ViewModelInteractions {
-
+extension ViewModel: AVCapturePreviewProvider {
 
     /**
-     Get a preview layer for display on the viewcontroller     - Attention:
+     Attaches an AVCapture preview layer to whatever would like it
 
      - Returns: Returns a reference to the PreviewLayer owned by the model
      */
-    internal func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
-        return model?.getCaptureVideoPreviewLayer()
+    func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver? {
+
+        return model?.attachAVCapturePreview(toReceiver: toReceiver)
     }
     
 
