@@ -13,7 +13,7 @@ import SwiftyBeaver
 
 // MARK: -
 // Helper Struct
-
+// This allows us to logically pass around qr codes and their position
 struct DetectedObjectCharacteristics: Equatable {
 
     let codeType: String
@@ -43,8 +43,11 @@ struct DetectedObjectCharacteristics: Equatable {
     }
 }
 
-// MARK: -
 
+// MARK: -
+// This protocol defines an outline object that will self terminate itself in a collection and 
+// remove itself from it's presented superview.
+// It's eventual demise can be delayed by setting the keepAlive variable to true
 
 protocol SelfTerminatingDrawableOutline {
 
@@ -59,9 +62,6 @@ protocol SelfTerminatingDrawableOutline {
 //
 /// This object manages an outline for a QRcode
 /// It has the ability to automatically remove itself from the superview and container.
-/// It's eventual demise can be delayed by setting the keepAlive variable to true
-///
-///
 
 class DetectedObjectOutline: Hashable, CustomStringConvertible {
 
