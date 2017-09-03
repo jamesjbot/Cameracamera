@@ -12,11 +12,6 @@ import SwiftyBeaver
 
 // MARK: -
 
-protocol AVCapturePreviewReceiver {
-    func attach(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver?
-}
-
-
 @IBDesignable
 class ViewController: UIViewController {
 

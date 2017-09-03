@@ -16,8 +16,3 @@ protocol ViewModelInteractions: AVCapturePreviewProvider {
 
     func savePhoto(_ completion: ((Bool)->())?)
 }
-
-protocol AVCapturePreviewProvider {
-
-    func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver?
-}
