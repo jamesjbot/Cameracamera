@@ -66,7 +66,7 @@ protocol SelfTerminatingDrawableOutline {
 class DetectedObjectOutline: Hashable, CustomStringConvertible {
 
     // MARK: Constants
-
+    fileprivate let MARGIN = CGFloat(10.0)
     private let ORIGIN_MEASUREMENT_ERROR_RANGE = CGFloat(0.001) // This should be a % of the view window pixels.
     private let SCREENWIDTH = UIScreen.main.bounds.width
     fileprivate let TIME_TO_KEEP_ALIVE = 0.2
@@ -199,7 +199,7 @@ extension DetectedObjectOutline {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.layoutMargins = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        stackView.layoutMargins = UIEdgeInsets(top: MARGIN, left: MARGIN, bottom: MARGIN, right: MARGIN)
         stackView.isLayoutMarginsRelativeArrangement = true
         if let bounds = self.uiViewRepresentation?.bounds {
             stackView.frame = bounds
