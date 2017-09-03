@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
 
         // Setup the structure
-        _ = DependencyInjector.attachViewModel(to: self)
+        _ = DependencyInjector.attachViewModelInteractions(to: self)
 
         // Setup the video preview
         initializePreviewLayer()
@@ -142,7 +142,7 @@ extension ViewController: AVCapturePreviewReceiver {
 
 class DependencyInjector {
 
-    static func attachViewModel(to viewcontroller: ViewController, viewModel: ViewModelInteractions? = nil) -> ViewController {
+    static func attachViewModelInteractions(to viewcontroller: ViewController, viewModel: ViewModelInteractions? = nil) -> ViewController {
 
         if viewModel == nil {
             let model = Model()
