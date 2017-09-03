@@ -226,7 +226,7 @@ extension Model: AVCapturePreviewProvider {
     func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver? {
         
         if let videoPreview = videoPreviewLayer {
-            return toReceiver.attach(preview: videoPreview)
+            return toReceiver.attachToSelf(preview: videoPreview)
         }
         return nil
 

@@ -15,5 +15,5 @@ protocol AVCapturePreviewProvider {
 
 protocol AVCapturePreviewReceiver {
 
-    func attach(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver?
+    func attachToSelf(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver?
 }

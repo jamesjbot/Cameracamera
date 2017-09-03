@@ -119,7 +119,7 @@ extension ViewController {
 extension ViewController: AVCapturePreviewReceiver {
 
     // Add the video preview layer as a sublayer to IBOutlet previewView
-    func attach(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver? {
+    func attachToSelf(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver? {
 
         captureVideoPreviewLayer = videoPreview
 
