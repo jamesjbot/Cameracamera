@@ -33,6 +33,14 @@ struct MetaDataObjectAndPayload {
 
 class Model: NSObject {
 
+    // MARK: -
+    // MARK: Constants
+
+    fileprivate let SCALE = CGFloat(1.0)
+
+    // MARK: -
+    // MARK: Variables
+
     internal var currentError: ModelError? = nil
 
     // Holds a reference to the videoPreviewLayer
@@ -117,11 +125,11 @@ class Model: NSObject {
     /// This method sets up all the outputs.
     func initializeCaptureOutputs() {
 
-        // Create a capture output for our capture session
+        // Create a photo capture output for our capture session
         capturePhotoOutput = AVCapturePhotoOutput()
         capturePhotoOutput?.isHighResolutionCaptureEnabled = true
 
-        // Initialize a metadataoutput and set it to capture from the session.
+        // Create a metadata capture output for our capture session
         captureMetaDataOutput = AVCaptureMetadataOutput()
     }
 
@@ -169,7 +177,7 @@ extension Model: AVCapturePhotoCaptureDelegate {
         }
 
         // Create a UIImage with our data
-        let capturedImage = UIImage.init(data: imageData, scale: 1.0)
+        let capturedImage = UIImage.init(data: imageData, scale: SCALE)
         if let image = capturedImage {
             // Save image to photoalbum.
             // FIXME: Add targets to notify the UI that we saved an image
