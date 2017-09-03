@@ -28,6 +28,9 @@ struct MetaDataObjectAndPayload {
 }
 
 
+/// This model create the Apple framework links to the AVFoundation for receving and preprocessing 
+/// Metadata.
+
 class Model: NSObject {
 
     internal var currentError: ModelError? = nil
@@ -150,6 +153,7 @@ class Model: NSObject {
 
 extension Model: AVCapturePhotoCaptureDelegate {
 
+    /// This method receives photo captured by "Take Photo" button.
     func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
 
         // Make sure there were no errors and the buffer was populated
@@ -179,6 +183,7 @@ extension Model: AVCapturePhotoCaptureDelegate {
 
 extension Model: AVCaptureMetadataOutputObjectsDelegate {
 
+    /// This method captures metadata objects when they are detected from the Apple AVFoundation framework.
     func captureOutput(_ captureOutput: AVCaptureOutput!,
                        didOutputMetadataObjects metadataObjects: [Any]!,
                        from connection: AVCaptureConnection!) {
@@ -234,7 +239,7 @@ extension Model: AVCapturePreviewProvider {
 
 extension Model: ModelInteractions {
 
-    /// This will save a photo of the current image to the photoalbum.
+    /// This will call the AVFoundation framework to take a picture.
     internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
 
         // Make sure our output is open
