@@ -180,9 +180,8 @@ extension Model: AVCapturePhotoCaptureDelegate {
         let capturedImage = UIImage.init(data: imageData, scale: SCALE)
         if let image = capturedImage {
             // Save image to photoalbum.
-            // FIXME: Add targets to notify the UI that we saved an image
+            // The user will be notified with a camera picture taking sound this is standard.
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-
         }
     }
 }
