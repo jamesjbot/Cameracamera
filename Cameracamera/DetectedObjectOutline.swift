@@ -49,9 +49,10 @@ struct DetectedObjectCharacteristics: Equatable {
 protocol SelfTerminatingDrawableOutline {
 
     var characteristics: DetectedObjectCharacteristics? {get}
+    var keepAlive: Bool {get set}
     var uiViewRepresentation: UIView? {get}
     var decodedPayload: String {get}
-    func similar(toCharacteristics: DetectedObjectCharacteristics) -> Bool
+    func isSimilar(toCharacteristics: DetectedObjectCharacteristics) -> Bool
 }
 
 // MARK: - 
@@ -128,7 +129,7 @@ extension DetectedObjectOutline: SelfTerminatingDrawableOutline {
      This function allows use to check if the outline matches a specific characteristic
      - Parameter toCharacteristics: The characteristics of the outline to match to
      */
-    func similar(toCharacteristics: DetectedObjectCharacteristics) -> Bool {
+    func isSimilar(toCharacteristics: DetectedObjectCharacteristics) -> Bool {
         return characteristics == toCharacteristics
     }
 }

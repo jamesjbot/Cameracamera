@@ -24,8 +24,8 @@ import SwiftyBeaver
 // MARK: Outline Manager Protocol
 
 protocol OutlineManager {
-    func deleteDetectedOutline(_ detectedOuline: DetectedObjectOutline) -> Bool
-    func getDuplicateOutline(withCharacteristics characteristics: DetectedObjectCharacteristics) -> DetectedObjectOutline?
+    func deleteDetectedOutline(_ detectedOuline: SelfTerminatingDrawableOutline) -> Bool
+    func getDuplicateOutline(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline?
 }
 
 
@@ -47,7 +47,7 @@ class ViewModel {
     }
 
     // Holds all the outlines that are being displayed
-    fileprivate var dictionaryOfDistinctStringPayload: [String:[DetectedObjectOutline]] = [:]
+    fileprivate var dictionaryOfDistinctStringPayload: [String:[SelfTerminatingDrawableOutline]] = [:]
 
     // Holds all the new outlines that need to be displayed
     internal var lastOutlineViews:Observable<[UIView]> = Observable([])
@@ -106,7 +106,7 @@ class ViewModel {
                                               origin: object.metaDataObject.bounds,
                                               codeType: object.metaDataObject.type)
 
-            let duplicateOutline = self.getDuplicateOutline(withCharacteristics: outlineCharacteristics)
+            var duplicateOutline = self.getDuplicateOutline(withCharacteristics: outlineCharacteristics)
 
             if duplicateOutline == nil {
 
@@ -128,10 +128,10 @@ class ViewModel {
         - withCharacteristics: Is the characteristics you want for the outline.
      - Returns: Returns the newly created outline
      */
-    internal func createNewOutlineInCollection(withCharacteristics characteristics: DetectedObjectCharacteristics) -> DetectedObjectOutline? {
+    internal func createNewOutlineInCollection(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline? {
 
         // Create an outline from the characteristics
-        let targetOutline = DetectedObjectOutline(characteristics: characteristics, viewModel: self)
+        let targetOutline: SelfTerminatingDrawableOutline = DetectedObjectOutline(characteristics: characteristics, viewModel: self)
 
         // Save the outline in our system.
         self.put(thisNew: targetOutline,
@@ -151,7 +151,7 @@ class ViewModel {
         - thisNew: Is the Detected Outline
         - into: Is the dictionary you want to place the object into.
      */
-    private func put(thisNew input: DetectedObjectOutline, into dictionaryOfOutlineArrays: [String:[DetectedObjectOutline]]) {
+    private func put(thisNew input: SelfTerminatingDrawableOutline, into dictionaryOfOutlineArrays: [String:[SelfTerminatingDrawableOutline]]) {
 
         let payload = input.decodedPayload
 
@@ -183,7 +183,13 @@ extension ViewModel: AVCapturePreviewProvider {
 
         return model?.attachAVCapturePreview(toReceiver: toReceiver)
     }
-    
+}
+
+
+// MARK: -
+// MARK: ViewModelInteractions Protocol Extension
+
+extension ViewModel: ViewModelInteractions {
 
     /**
      Tell the model to save photo of the metadata without markup
@@ -214,7 +220,7 @@ extension ViewModel: OutlineManager {
      - Returns: A boolean indication success 'true' or failure 'false'
      - Note: Currently any qrcode with the exact same payload will be save in the exact same sub-collection
      */
-    internal func deleteDetectedOutline(_ detectedOuline: DetectedObjectOutline) -> Bool {
+    internal func deleteDetectedOutline(_ detectedOuline: SelfTerminatingDrawableOutline) -> Bool {
 
         // Make sure the array containing the duplicate string payloads exists
         guard let array = dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload] else {
@@ -228,7 +234,7 @@ extension ViewModel: OutlineManager {
         }
 
         // Remove the exact outline from the multiple same payloads in the dictionary
-        let closure: (DetectedObjectOutline) -> (Bool) = {($0.similar(toCharacteristics: detectedOuline.characteristics!))}
+        let closure: (SelfTerminatingDrawableOutline) -> (Bool) = {($0.isSimilar(toCharacteristics: detectedOuline.characteristics!))}
 
         // Remove the outline at the desired position
         if let index = dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload]?
@@ -247,9 +253,9 @@ extension ViewModel: OutlineManager {
      - Parameters:
         - withCharacteristics: The detected object characteristics you are looking for
         - juice: The type of juice you like to drink
-     - Returns: The DetectedObjectOutline or nil
+     - Returns: The SelfTerminatingDrawableOutline or nil
      */
-    internal func getDuplicateOutline(withCharacteristics characteristics: DetectedObjectCharacteristics) -> DetectedObjectOutline? {
+    internal func getDuplicateOutline(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline? {
 
         let payload = characteristics.payload
 
