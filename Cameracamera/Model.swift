@@ -23,8 +23,10 @@ enum ModelError: Error {
 
 struct MetaDataObjectAndPayload {
 
-    var metaDataObject: AVMetadataObject
+    //var metaDataObject: AVMetadataObject
+    var bounds: CGRect
     var payload: String
+    var type: String
 }
 
 
@@ -78,8 +80,7 @@ class Model: NSObject {
         // Initialize our captureSession
         captureSession = AVCaptureSession()
 
-        // Attach input to capture seesion
-        captureSession?.addInput(captureInput)
+        attachInputToCaptureSession()
 
         videoPreviewLayer = makeVideoPreviewViewLayer()
 
@@ -134,12 +135,26 @@ class Model: NSObject {
     }
 
 
+    func attachInputToCaptureSession() {
+        // Attach input to capture seesion
+        guard let captureInput = captureInput else {
+            return
+        }
+        captureSession?.addInput(captureInput)
+    }
+
+
+
     ///
     func attachOutputsToCaptureSession() {
 
         // Attach output to capture session
-        captureSession?.addOutput(capturePhotoOutput)
-        captureSession?.addOutput(captureMetaDataOutput)
+        if let capturePhotoOutput = capturePhotoOutput {
+            captureSession?.addOutput(capturePhotoOutput)
+        }
+        if let captureMetaDataOutput = captureMetaDataOutput {
+            captureSession?.addOutput(captureMetaDataOutput)
+        }
     }
 
 
@@ -209,8 +224,11 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
                 continue
             }
 
-            let dataAndPayload = MetaDataObjectAndPayload(metaDataObject: convertedObject,
-                                                          payload: metadataObject.stringValue)
+            let dataAndPayload = MetaDataObjectAndPayload(bounds: convertedObject.bounds,
+                                                          payload: metadataObject.stringValue,
+                                                          type: convertedObject.type)
+         //       MetaDataObjectAndPayload(bounds: convertedObject,
+         //                                                 payload: metadataObject.stringValue)
 
             accumulatedAVMetadata.append(dataAndPayload)
         }
