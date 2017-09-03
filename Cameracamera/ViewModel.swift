@@ -98,7 +98,7 @@ class ViewModel {
      - Parameter objects: And array of [MetaDataObjectAndPayload]
 
      */
-    internal func processEveryMetadataObject(objects :[MetaDataObjectAndPayload]) {
+    private func processEveryMetadataObject(objects :[MetaDataObjectAndPayload]) {
 
         for object in objects {
             let outlineCharacteristics =
@@ -128,7 +128,7 @@ class ViewModel {
         - withCharacteristics: Is the characteristics you want for the outline.
      - Returns: Returns the newly created outline
      */
-    internal func createNewOutlineInCollection(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline? {
+    private func createNewOutlineInCollection(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline? {
 
         // Create an outline from the characteristics
         let targetOutline: SelfTerminatingDrawableOutline = DetectedObjectOutline(characteristics: characteristics, viewModel: self)
@@ -179,7 +179,7 @@ extension ViewModel: AVCapturePreviewProvider {
 
      - Returns: Returns a reference to the PreviewLayer owned by the model
      */
-    func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver? {
+    internal func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver? {
 
         return model?.attachAVCapturePreview(toReceiver: toReceiver)
     }
