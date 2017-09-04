@@ -12,6 +12,14 @@ import SwiftyBeaver
 
 // MARK: -
 
+/// This general architecture is once the view/viewcontroller, viewmodel, and model are hooked up by
+/// reactive binding thru two variables (one in viewmodel, and one in the model).
+/// All metadata objects detected by the model will be passed up to the viewmodel, where 
+/// the viewmodel will monitor which metadata objects are currently on screen.
+/// The viewmodel will then pass these views to the view/viewcontroller for presentation.
+/// The outline objects have a "time to live" after the outline's time is up,
+/// the outline will remove itself from the super view and from the viewmodel.
+
 @IBDesignable
 class ViewController: UIViewController {
 
@@ -128,13 +136,10 @@ extension ViewController: AVCapturePreviewReceiver {
         }
 
         // Set previewLayer to our viewcontroller bounds
-        captureVideoPreviewLayer?.frame = self.mainView.layer.bounds
+        captureVideoPreviewLayer?.frame = mainView.layer.bounds
 
         // Attach the captureVideoPreview to our previewView
-        DispatchQueue.main.async {
-            self.previewView.layer.addSublayer(self.captureVideoPreviewLayer!)
-        }
-
+        previewView.layer.addSublayer(captureVideoPreviewLayer!)
         return self
     }
 }
