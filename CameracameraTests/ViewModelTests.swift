@@ -1,83 +1,103 @@
-//
-//  ViewModelTests.swift
-//  Cameracamera
-//
-//  Created by James Jongsurasithiwat on 8/24/17.
-//  Copyright © 2017 James Jongs. All rights reserved.
-//
-
+////
+////  ViewModelTests.swift
+////  Cameracamera
+////
+////  Created by James Jongsurasithiwat on 8/24/17.
+////  Copyright © 2017 James Jongsurasithiwat. All rights reserved.
+////
+import UIKit
+import Foundation
 import XCTest
 import Bond
 import AVFoundation
 
 @testable import Cameracamera
 
-class ViewModelTests: XCTestCase {
+class ViewModelToModelTests: XCTestCase {
 
     var viewController: ViewController?
     var viewModel: ViewModel?
-    var model: MockModel?
+    var mockModel: MockModel?
+    var window: UIWindow?
 
     override func setUp() {
         super.setUp()
 
-        model = MockModel()
-        viewModel = ViewModel(model!)
+        mockModel = MockModel()
+        viewModel = ViewModel(mockModel!)
 
         viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as? ViewController
-
-        let _ = DependencyInjector.attachViewModel(to: viewController!, viewModel: viewModel)
-
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = viewController
+        
+        let _ = DependencyInjector.attachViewModelInteractions(to: viewController!, viewModel: viewModel)
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        assert(viewController?.mainView.layer.bounds != nil)
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         viewModel = nil
-        model = nil
+        mockModel = nil
         super.tearDown()
     }
 
+    
     func testViewModelReceivesAViewFromPropertyMetadataCodeObjects() {
         // given:
         // viewModel receives a new outline.
-        model?.generateFakeMetadataCodeObject()
+        let expectation = XCTestExpectation(description: "Finished creating fake metadata")
 
-        // viewModel waits for short duration
         // when: we Delay
-        for _ in 1...1000 {
-        }
+        mockModel?.generateFakeMetadataCodeObject(numberOfFakes: 1,
+                                                  testExpectation: expectation,
+                                                  allOverlapping: false)
+
 
         // then:
+        wait(for: [expectation], timeout: 5.0)
         XCTAssert(viewModel?.lastOutlineViews.value.count == 1, "viewModel did not receive a view \(String(describing: viewModel?.lastOutlineViews.value.count))")
     }
 
-    func testViewModelReceivesMultipleViewsMetadataCodeObjects() {
+
+    func testViewModelReceivesMultipleViewsMetadataCodeObjectsNonOverlapping() {
         // given:
         // viewModel receives 3 new outlines.
-        model?.generateFakeMetadataCodeObject()
-        model?.generateFakeMetadataCodeObject()
-        model?.generateFakeMetadataCodeObject()
+        let expectation1 = XCTestExpectation(description: "Finished creating fake metadata 1")
+        //let expectation2 = XCTestExpectation(description: "Finished creating fake metadata 2")
+        //let expectation3 = XCTestExpectation(description: "Finished creating fake metadata 3")
 
-        // viewModel waits for short duration
-        // when: we delay
-        for _ in 1...1000 {
-        }
+        // when: we create 3 new test data objects
+        mockModel?.generateFakeMetadataCodeObject(numberOfFakes: 3,
+                                                  testExpectation: expectation1,
+                                                  allOverlapping: false)
+        //mockModel?.generateFakeMetadataCodeObject(testExpectation: expectation2)
+        //mockModel?.generateFakeMetadataCodeObject(testExpectation: expectation3)
 
         // then:
+        wait(for: [expectation1], timeout: 5)
         XCTAssert(viewModel?.lastOutlineViews.value.count == 3, "viewModel did not receive 3 view \(String(describing: viewModel?.lastOutlineViews.value.count))")
     }
 
-    func testViewModelGettingVideoPreviewLayer() {
+    func testViewModelReceivesMultipleViewsMetadataCodeObjectsOverlapping() {
         // given:
+        // viewModel receives 3 new outlines.
+        let expectation1 = XCTestExpectation(description: "Finished creating fake metadata 1")
+        //let expectation2 = XCTestExpectation(description: "Finished creating fake metadata 2")
+        //let expectation3 = XCTestExpectation(description: "Finished creating fake metadata 3")
 
-        // when:
-        let previewLayer = model?.getCaptureVideoPreviewLayer()
+        // when: we create 3 new test data objects
+        mockModel?.generateFakeMetadataCodeObject(numberOfFakes: 3,
+                                                  testExpectation: expectation1,
+                                                  allOverlapping: true)
+        //mockModel?.generateFakeMetadataCodeObject(testExpectation: expectation2)
+        //mockModel?.generateFakeMetadataCodeObject(testExpectation: expectation3)
 
         // then:
-        XCTAssertNotNil(previewLayer)
+        wait(for: [expectation1], timeout: 5)
+        XCTAssert(viewModel?.lastOutlineViews.value.count == 1, "viewModel did not receive 3 view \(String(describing: viewModel?.lastOutlineViews.value.count))")
     }
-
 
     func testViewModelSavingPhoto() {
         // given:
@@ -86,7 +106,7 @@ class ViewModelTests: XCTestCase {
 
         // when:
         var result: Bool?
-        model?.savePhoto {
+        mockModel?.savePhoto {
             success -> () in
             result = success
             expectation.fulfill()
@@ -100,31 +120,20 @@ class ViewModelTests: XCTestCase {
     }
 
 
+    func testViewModelAttachingPreviewToAnInputViewController() {
+        // given:
 
-}
+        // when:
+        let returnViewController = mockModel?.attachAVCapturePreview(toReceiver: viewController!)
 
-class MockModel: ModelInteractions {
-
-    var metadataCodeObjects: MutableObservableArray<MetaDataObjectAndPayload> = MutableObservableArray<MetaDataObjectAndPayload>([])
-
-
-    func getCaptureVideoPreviewLayer() -> AVCaptureVideoPreviewLayer? {
-
-        return AVCaptureVideoPreviewLayer()
-    }
-
-
-    func savePhoto(_ completion: ((Bool)->())? = nil ) {
-        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) {
-            timer in
-            completion?(true)
+        // then:
+        XCTAssertNotNil(returnViewController)
+        guard let mM = mockModel else {
+            fatalError()
         }
+        XCTAssert(mM.receivedViewControlleAndSetAVCaptureVideoPreviewLayer)
     }
 
-
-    func generateFakeMetadataCodeObject() {
-        metadataCodeObjects.append(MetaDataObjectAndPayload(metaDataObject: AVMetadataMachineReadableCodeObject(), payload: "Test"))
-    }
 }
 
 

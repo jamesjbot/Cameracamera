@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.4.0)
   - Bond (6.2.6):
     - Diff (~> 0.4)
     - ReactiveKit (~> 3.5.3)
@@ -7,15 +8,17 @@ PODS:
   - SwiftyBeaver (1.2.1)
 
 DEPENDENCIES:
+  - Alamofire
   - Bond (~> 6.0)
   - SwiftyBeaver
 
 SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Bond: 0d7a52e9aec644c3b4985ceeb224a402b1efd691
   Diff: befa1d19c32726b2b36ce915d98793e2fbde8dcc
   ReactiveKit: 39a0723167d04107140cf540f04526deecd18891
   SwiftyBeaver: f29dc64b0ae619d73ee94fd04bd532f895765208
 
-PODFILE CHECKSUM: 2c25297f17173d48654aaae6bf19a4708a78841a
+PODFILE CHECKSUM: b0915b1195ec398c036323b55ece4e7420a48596
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.3.1

@@ -4,45 +4,67 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Bond.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Diff.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pods-Cameracamera.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>ReactiveKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>SwiftyBeaver.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0C25B8734C71B3B649E1B3CED6BBF96F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4D0EA889A8C49B6DE4E709EC36839DC5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4E4E4CE89DCA8573AC3CEF80C199D4BE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A42477C474B0E024A379C23F5F9089F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C6E76E5FB4FD84F3FC651CFE34C751FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

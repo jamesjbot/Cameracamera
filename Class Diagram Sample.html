@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!-- saved from url=(0112)file:///Users/jamesjongs/Desktop/Projects/Cameracamera/Cameracamera/swift-auto-diagram/htmltemplate/diagram.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Class Diagram Sample</title>
+    <link type="text/css" rel="stylesheet" href="./Class Diagram Sample_files/diagram.css">
+    <link type="text/css" rel="stylesheet" href="./Class Diagram Sample_files/vis.min.css">
+    <script src="./Class Diagram Sample_files/jquery-3.1.1.min.js"></script>
+    <script src="./Class Diagram Sample_files/mustache.min.js"></script>
+    <script src="./Class Diagram Sample_files/vis.min.js"></script>
+    <script src="./Class Diagram Sample_files/html2canvas.js"></script>
+    <script src="./Class Diagram Sample_files/diagram.js"></script>
+</head>
+<body onload="bindValues()">
+    <div id="entities"></div>
+    <div id="classDiagram" style="width: 1435px; height: 736px;"><div class="vis-network" tabindex="900" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"><canvas width="4305" height="2208" style="position: relative; touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 100%;"></canvas></div></div>
+    <div class="loading-overlay" style="display: none;">
+        <div class="uil-ripple-css">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <script id="case" type="x-tmpl-mustache">
+        <p class="entity-case case">
+            <span class="entity-case-name">.{{name}}</span>
+        </p>
+    </script>
+    <script id="property" type="x-tmpl-mustache">
+        <p class="entity-property entity-property-{{accessLevel}}" title="{{accessLevel}} property">
+            <span class="entity-property-type">{{type}}</span>
+            <span class="entity-property-name">{{name}}</span>
+        </p>
+    </script>
+    <script id="method" type="x-tmpl-mustache">
+        <p class="entity-method entity-method-{{accessLevel}}" title="{{accessLevel}} method">
+            <span class="entity-method-type">{{type}}</span>
+            <span class="entity-method-name">{{name}}</span>
+        </p>
+    </script>
+    <script id="entity" type="x-tmpl-mustache">
+        <div class="entity" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="entity-{{type}}">
+                <p class="type">{{type}}</p>
+                <p>{{name}}</p>
+            </div>
+            {{#props}}
+            <section class="entity-properties">
+                {{{props}}}
+            </section>
+            {{/props}}
+            {{#methods}}
+            <section class="entity-methods">
+                {{{methods}}}
+            </section>
+            {{/methods}}
+            {{#cases}}
+            <section class="entity-cases">
+                {{{cases}}}
+            </section>
+            {{/cases}}
+        </div>
+    </script>
+    <script id="data" type="x-tmpl-mustache">
+        <img class="entity-image" src="{{{data}}}" xmlns="http://www.w3.org/1999/xhtml"/>
+    </script>
+
+
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    </body></html>
