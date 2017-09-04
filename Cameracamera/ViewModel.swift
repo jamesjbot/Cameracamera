@@ -127,7 +127,7 @@ class ViewModel {
         - withCharacteristics: Is the characteristics you want for the outline.
      - Returns: Returns the newly created outline
      */
-    private func createNewOutlineInCollection(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline? {
+    private func createNewOutlineInCollectionAndUpdatelastOutlineViews(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline? {
 
         // Create an outline from the characteristics
         let targetOutline: SelfTerminatingDrawableOutline = DetectedObjectOutline(characteristics: characteristics, viewModel: self)
