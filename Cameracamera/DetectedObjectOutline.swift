@@ -201,7 +201,7 @@ extension DetectedObjectOutline {
         stackView.distribution = .equalSpacing
         stackView.layoutMargins = UIEdgeInsets(top: MARGIN, left: MARGIN, bottom: MARGIN, right: MARGIN)
         stackView.isLayoutMarginsRelativeArrangement = true
-        if let bounds = self.uiViewRepresentation?.bounds {
+        if let bounds = uiViewRepresentation?.bounds {
             stackView.frame = bounds
         }
         return stackView
