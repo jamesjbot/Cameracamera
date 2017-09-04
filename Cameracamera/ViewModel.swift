@@ -26,6 +26,7 @@ import SwiftyBeaver
 protocol OutlineManager {
     func deleteDetectedOutline(_ detectedOuline: SelfTerminatingDrawableOutline) -> Bool
     func getDuplicateOutline(withCharacteristics characteristics: DetectedObjectCharacteristics) -> SelfTerminatingDrawableOutline?
+    func put(thisNew input: SelfTerminatingDrawableOutline, into dictionaryOfOutlineArrays: [String:[SelfTerminatingDrawableOutline]]) 
 }
 
 
@@ -52,6 +53,8 @@ class ViewModel {
     // Holds all the new outlines that need to be displayed
     internal var lastOutlineViews:Observable<[UIView]> = Observable([])
 
+    internal var outlineManager: OutlineManager?
+
     fileprivate var model: ModelInteractions?
 
 
@@ -59,6 +62,7 @@ class ViewModel {
 
     init(_ model: ModelInteractions) {
         self.model = model
+        outlineManager = self
         bindModel()
     }
 
@@ -143,28 +147,7 @@ class ViewModel {
     }
 
 
-    /**
-     This method places the outline into the outline manager
 
-     - Parameters:
-        - thisNew: Is the Detected Outline
-        - into: Is the dictionary you want to place the object into.
-     */
-    private func put(thisNew input: SelfTerminatingDrawableOutline, into dictionaryOfOutlineArrays: [String:[SelfTerminatingDrawableOutline]]) {
-
-        let payload = input.decodedPayload
-
-        // We must have a array representing the loctions of the payload (QRCode)
-        guard dictionaryOfOutlineArrays[payload] != nil else {
-            // Create a new array of qrcode locations for a particular payload (QRCode)
-            // And add the DetectedOutline to nit to the dictionary
-            dictionaryOfDistinctStringPayload[payload] = [input]
-            return
-        }
-
-        // Array for a particular payload already exists, just append the new outline to the array
-        dictionaryOfDistinctStringPayload[payload]?.append(input)
-    }
 }
 
 
@@ -272,6 +255,29 @@ extension ViewModel: OutlineManager {
         }
         SwiftyBeaver.verbose("Failed to find a duplicate Outline")
         return nil
+    }
+
+    /**
+     This method places the outline into the outline manager
+
+     - Parameters:
+     - thisNew: Is the Detected Outline
+     - into: Is the dictionary you want to place the object into.
+     */
+    internal func put(thisNew input: SelfTerminatingDrawableOutline, into dictionaryOfOutlineArrays: [String:[SelfTerminatingDrawableOutline]]) {
+
+        let payload = input.decodedPayload
+
+        // We must have a array representing the loctions of the payload (QRCode)
+        guard dictionaryOfOutlineArrays[payload] != nil else {
+            // Create a new array of qrcode locations for a particular payload (QRCode)
+            // And add the DetectedOutline to nit to the dictionary
+            dictionaryOfDistinctStringPayload[payload] = [input]
+            return
+        }
+
+        // Array for a particular payload already exists, just append the new outline to the array
+        dictionaryOfDistinctStringPayload[payload]?.append(input)
     }
 }
 
