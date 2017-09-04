@@ -85,14 +85,13 @@ class ViewModel {
             self.processEveryMetadataObject(objects: objects)
 
             // By replacing this value the signal will fire and the observer can see the changes
-            //self.lastOutlineViews.value = views
             SwiftyBeaver.verbose("\nViewModel \(#function) observer iteration:\(processingID) complete!\n^^^^^^^^^^^^^^^^^^^\n")
         }
     }
 
 
     /**
-     This will process every metadata objects
+     This will process every metadata object
 
      - Note: This is where you will want to add future code types or feature processing
      - Parameter objects: And array of [MetaDataObjectAndPayload]
@@ -106,13 +105,13 @@ class ViewModel {
                                               origin: object.metaDataObject.bounds,
                                               codeType: object.metaDataObject.type)
 
-            var duplicateOutline = self.getDuplicateOutline(withCharacteristics: outlineCharacteristics)
+            var duplicateOutline = getDuplicateOutline(withCharacteristics: outlineCharacteristics)
 
             if duplicateOutline == nil {
 
-                let _ = self.createNewOutlineInCollection(withCharacteristics: outlineCharacteristics)
+                let _ = createNewOutlineInCollectionAndUpdatelastOutlineViews(withCharacteristics: outlineCharacteristics)
             }
-            else // We have a this outline already present and accounted for.
+            else // We have an outline already present and accounted for.
             {
                 // Rest the items death timer
                 duplicateOutline?.keepAlive = true
@@ -134,11 +133,11 @@ class ViewModel {
         let targetOutline: SelfTerminatingDrawableOutline = DetectedObjectOutline(characteristics: characteristics, viewModel: self)
 
         // Save the outline in our system.
-        self.put(thisNew: targetOutline,
-                 into: self.dictionaryOfDistinctStringPayload)
+        put(thisNew: targetOutline,
+                 into: dictionaryOfDistinctStringPayload)
 
         // Add the view to the queue for display in the viewcontroller
-        self.lastOutlineViews.value.append(targetOutline.uiViewRepresentation!)
+        lastOutlineViews.value.append(targetOutline.uiViewRepresentation!)
 
         return targetOutline
     }
