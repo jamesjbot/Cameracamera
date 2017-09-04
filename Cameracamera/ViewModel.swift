@@ -102,8 +102,8 @@ class ViewModel {
         for object in objects {
             let outlineCharacteristics =
                 DetectedObjectCharacteristics(payload: object.payload,
-                                              origin: object.metaDataObject.bounds,
-                                              codeType: object.metaDataObject.type)
+                                              origin: object.bounds,
+                                              codeType: object.type)
 
             var duplicateOutline = getDuplicateOutline(withCharacteristics: outlineCharacteristics)
 
