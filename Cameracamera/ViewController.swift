@@ -246,23 +246,36 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
 
         self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
 
-        let photo : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let photo: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        return photo
+    }
+
+
+    private func hideUIRevealCapturedImage(imageData: Data?) {
+
+        guard let data = imageData else {
+            return
+        }
+
+        // Create a UIImage with our data
+        let capturedImage = UIImage.init(data: data, scale: Constants.avCaptureScale)
+        self.feedbackImageView.image = capturedImage
+        self.feedbackImageView.isHidden = false
+
+        // Hide UI elements
+        self.saveQRCodesToggle.isHidden = true
+        self.saveQRCodesLabel.isHidden = true
+    }
+
+
+    private func revealUIHideCapturedImage() {
 
         // Reveal onscreen ui elements
         self.saveQRCodesToggle.isHidden = false
         self.saveQRCodesLabel.isHidden = false
         self.takePhoto.isHidden = false
         self.feedbackImageView.isHidden = true
-
-        // Save image to photoalbum.
-        // The user will be notified with a camera picture taking sound this is standard.
-        UIImageWriteToSavedPhotosAlbum(photo, nil, nil, nil)
-        if #available(iOS 9.0, *) {
-            AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
-        } else {
-            AudioServicesPlaySystemSound(1108)
-        }
     }
 }
 
