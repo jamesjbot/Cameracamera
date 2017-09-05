@@ -143,7 +143,7 @@ class ViewController: UIViewController {
                 return
             }
 
-            self.attach(these: newViews, to: self.outlineStoryBoardView)
+            self.attach(theseOutlines: newViews, to: self.outlineStoryBoardView)
         }
     }
 
@@ -266,7 +266,7 @@ extension ViewController: AVCapturePreviewReceiver {
 // MARK: - Attaching outlines to view
 extension ViewController {
 
-    fileprivate func attach(these outlines: [UIView], to superView: UIView) {
+    fileprivate func attach(theseOutlines outlines: [UIView], to superView: UIView) {
         DispatchQueue.main.async {
             let _ = outlines.map { superView.addSubview($0) }
         }
