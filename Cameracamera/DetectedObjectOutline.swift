@@ -112,7 +112,7 @@ class DetectedObjectOutline: Hashable, CustomStringConvertible {
         setupUIViewRepresentation(with: characteristics)
 
         // Start a new timer to delete the outline after a certain amount of time
-        setNewTimer()
+        startAliveCountdownTimer()
     }
     
 
@@ -229,7 +229,7 @@ extension DetectedObjectOutline {
 
 
     /// Creates the new timer that will eventually remove this outline form the view.
-    fileprivate func setNewTimer() {
+    fileprivate func startAliveCountdownTimer() {
 
         let timerCompletionBlock: (Timer) -> () = {
             [weak self] timer in
