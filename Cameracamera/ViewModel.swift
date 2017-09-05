@@ -180,12 +180,10 @@ extension ViewModel: ViewModelInteractions {
      - Attention: **This will not save the outliens.**
      - ToDo: Implement a version of this to save outlines too.
      */
-    internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
-        
-        model?.savePhoto(nil)
-        if let completion = completion {
-            completion(true)
-        }
+    internal func savePhoto(delegate: AVCapturePhotoCaptureDelegate?,
+                            completion: ( (Bool,Error?)->() )? = nil) {
+
+        model?.savePhoto(delegate: delegate, completion: completion)
     }
 }
 

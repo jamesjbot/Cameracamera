@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 protocol AVCapturePreviewProvider {
 
@@ -16,4 +17,9 @@ protocol AVCapturePreviewProvider {
 protocol AVCapturePreviewReceiver {
 
     func attachToSelf(preview videoPreview: AVCaptureVideoPreviewLayer) -> AVCapturePreviewReceiver?
+}
+
+protocol SavedPhotoResponder {
+    func savePhoto(delegate: AVCapturePhotoCaptureDelegate?,
+                   completion: ( (Bool,Error?)->() )?)
 }

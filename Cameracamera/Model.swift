@@ -43,6 +43,8 @@ class Model: NSObject {
     // MARK: -
     // MARK: Variables
 
+    fileprivate var completionHandlerForSavedPhoto: ((Bool,Error?)->())? = nil
+
     internal var currentError: ModelError? = nil
 
     // Holds a reference to the videoPreviewLayer
@@ -272,7 +274,9 @@ extension Model: AVCapturePreviewProvider {
 extension Model: ModelInteractions {
 
     /// This will call the AVFoundation framework to take a picture.
-    internal func savePhoto(_ completion: ((Bool)->())? = nil ) {
+    internal func savePhoto(delegate viewcontrollerNeedsAnImage: AVCapturePhotoCaptureDelegate?,
+                            completion: ((Bool,Error?)->())? = nil ) {
+
 
         // Make sure our output is open
         guard let capturePhotoOutput = self.capturePhotoOutput else {
