@@ -199,7 +199,7 @@ extension Model: AVCapturePhotoCaptureDelegate {
         }
 
         // Create a UIImage with our data
-        let capturedImage = UIImage.init(data: imageData, scale: Constants.AVCAPTURESCALE)
+        let capturedImage = UIImage.init(data: imageData, scale: Constants.avCaptureScale)
         if let image = capturedImage {
             // Save image to photoalbum.
             // The user will be notified with a camera picture taking sound this is standard.

@@ -185,7 +185,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         }
 
         // Create a UIImage with our data
-        let capturedImage = UIImage.init(data: imageData, scale: Constants.AVCAPTURESCALE)
+        let capturedImage = UIImage.init(data: imageData, scale: Constants.avCaptureScale)
 
         self.feedbackImageView.image = capturedImage
         self.feedbackImageView.isHidden = false
@@ -197,7 +197,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         // Creates a UIImage
 
         // Render view to an image
-        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.isOpaque, self.FULL_PIXEL_SIZE )
+        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.isOpaque, Constants.fullPixelSize )
 
         self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
 

@@ -14,5 +14,6 @@ enum Constants {
     static let scaling = CGFloat(1.15)
     static let ourBorderColor = UIColor.red.cgColor
     static let ourBorderWidth = CGFloat(3.0)
-    static let AVCAPTURESCALE = CGFloat(1.0)
+    static let avCaptureScale = CGFloat(1.0)
+    static let fullPixelSize = CGFloat(0.0)
 }
