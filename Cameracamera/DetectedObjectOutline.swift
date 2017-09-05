@@ -72,9 +72,13 @@ class DetectedObjectOutline: Hashable, CustomStringConvertible {
 
     fileprivate let viewModelContainingThis: OutlineManager?
 
+    
     // MARK: Variables
+
     internal var characteristics: DetectedObjectCharacteristics?
+
     fileprivate var creationTime = Date()
+
     internal var decodedPayload: String = ""
 
     internal var description: String {
@@ -91,6 +95,8 @@ class DetectedObjectOutline: Hashable, CustomStringConvertible {
     fileprivate var timer: Timer?
 
     internal var uiViewRepresentation: UIView? = nil
+
+
 
     // MARK: Methods
 
