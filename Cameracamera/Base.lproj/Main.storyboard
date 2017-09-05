@@ -100,7 +100,6 @@
                     </view>
                     <connections>
                         <outlet property="feedbackImageView" destination="bB9-rA-okB" id="2aU-31-9yh"/>
-                        <outlet property="mainView" destination="8bC-Xf-vdC" id="iYg-dC-0fo"/>
                         <outlet property="onTapTakePhoto" destination="0N0-Eb-2Ly" id="58u-Gv-6oz"/>
                         <outlet property="outlineStoryBoardView" destination="ARX-so-nLE" id="LC4-Gn-JcE"/>
                         <outlet property="previewView" destination="SMp-GA-z8k" id="RC7-er-hjX"/>

@@ -28,29 +28,28 @@ class ViewController: UIViewController {
 
     // MARK: Variables
 
-    public var lastDrawnViews = [UIView]()
+    fileprivate var captureVideoPreviewLayer: AVCaptureVideoPreviewLayer?
+
+    internal var lastDrawnViews = [UIView]()
 
     fileprivate var viewModel: ViewModelInteractions?
 
-    fileprivate var captureVideoPreviewLayer: AVCaptureVideoPreviewLayer?
 
     // MARK: IBOutlets
 
-    @IBOutlet weak var outlineStoryBoardView: UIView!
-    
     @IBOutlet weak var feedbackImageView: UIImageView!
 
-    @IBOutlet weak var takePhoto: UIButton!
+    @IBInspectable @IBOutlet weak var onTapTakePhoto: UIButton!
+
+    @IBOutlet weak var outlineStoryBoardView: UIView!
+
+    @IBOutlet weak var previewView: UIView!
 
     @IBOutlet weak var saveQRCodesLabel: UILabel!
 
     @IBOutlet weak var saveQRCodesToggle: UISwitch!
 
-    @IBOutlet weak var previewView: UIView!
-
-    @IBInspectable @IBOutlet weak var onTapTakePhoto: UIButton!
-
-    @IBOutlet var mainView: UIView!
+    @IBOutlet weak var takePhoto: UIButton!
 
 
     // MARK: IBAction
@@ -94,6 +93,7 @@ class ViewController: UIViewController {
         // Binding to the view model
         bindViewModel()
     }
+
 
     override func viewWillLayoutSubviews() {
 
@@ -139,6 +139,7 @@ class ViewController: UIViewController {
             SwiftyBeaver.info("\nViewController received \(event.count) new views")
             let newViews = event.dataSource
 
+            // Ignore when there are no new views.
             guard newViews.count > 0 else {
                 return
             }

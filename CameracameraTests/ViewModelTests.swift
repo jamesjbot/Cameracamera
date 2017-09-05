@@ -33,7 +33,7 @@ class ViewModelToModelTests: XCTestCase {
         
         let _ = DependencyInjector.attachViewModelInteractions(to: viewController!, viewModel: viewModel)
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        assert(viewController?.mainView.layer.bounds != nil)
+        assert(viewController?.view.layer.bounds != nil)
     }
     
     override func tearDown() {
