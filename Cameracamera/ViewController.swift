@@ -202,26 +202,43 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
 
         // Make sure there were no errors and the buffer was populated
         guard error == nil, let photoSampleBuffer = photoSampleBuffer else {
-            currentError = ModelError.PhotoSampleBufferNil
+            SwiftyBeaver.error("Error converting photo buffer to jpeg \(ModelError.PhotoSampleBufferNil)")
+            _ = display(error: "There was an error capturing image\nplease try again.")
             return
         }
 
         // Convert photo buffer to jpeg
         guard let imageData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer) else {
-            currentError = ModelError.JPEGPhotoRepresentationError
+            SwiftyBeaver.error("Error converting photo buffer to jpeg \(ModelError.JPEGPhotoRepresentationError)")
+            _ = display(error: "There was an error capturing image\nplease try again.")
             return
         }
 
-        // Create a UIImage with our data
-        let capturedImage = UIImage.init(data: imageData, scale: Constants.avCaptureScale)
+        hideUIRevealCapturedImage(imageData: imageData)
 
-        self.feedbackImageView.image = capturedImage
-        self.feedbackImageView.isHidden = false
+        let photo = flattenAllLayersIntoAnImage()
 
-        // Hide UI elements
-        self.saveQRCodesToggle.isHidden = true
-        self.saveQRCodesLabel.isHidden = true
+        revealUIHideCapturedImage()
 
+        // Save image to photoalbum.
+        // The user will be notified with a camera picture taking sound this is standard.
+        UIImageWriteToSavedPhotosAlbum(photo, self, #selector(ViewController.captureUIImageWriteToPhotoAlbumCompletion(_:didFinishSavingWithError:contextInfo:)), nil)
+
+    }
+
+
+    @objc
+    private func captureUIImageWriteToPhotoAlbumCompletion(_: UIImage?,
+                                                           didFinishSavingWithError: Error?,
+                                                           contextInfo: Any? ) {
+        // If there is no error
+        guard didFinishSavingWithError == nil else {
+            return
+        }
+    }
+
+
+    private func flattenAllLayersIntoAnImage() -> UIImage {
         // Creates a UIImage
 
         // Render view to an image
