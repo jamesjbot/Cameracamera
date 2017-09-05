@@ -96,7 +96,7 @@ class Model: NSObject {
 
 
     /// Initialize the capture device and connect it to the capture input
-    func initializeCaptureInputs() {
+    private func initializeCaptureInputs() {
 
         // Create a capture device
         captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
@@ -112,7 +112,7 @@ class Model: NSObject {
 
 
     /// This method sets the types of meta data you want to scan for.
-    func initializeMetaDataCaptureProperties() {
+    private func initializeMetaDataCaptureProperties() {
 
         // Specify the types of metadata you want to identify
         let desiredTypes = [AVMetadataObjectTypeQRCode,AVMetadataObjectTypeAztecCode]
@@ -131,7 +131,7 @@ class Model: NSObject {
 
 
     /// This method sets up all the outputs.
-    func initializeCaptureOutputs() {
+    private func initializeCaptureOutputs() {
 
         // Create a photo capture output for our capture session
         capturePhotoOutput = AVCapturePhotoOutput()
@@ -142,7 +142,7 @@ class Model: NSObject {
     }
 
 
-    func attachInputToCaptureSession() {
+    private func attachInputToCaptureSession() {
         // Attach input to capture seesion
         guard let captureInput = captureInput else {
             return
@@ -153,7 +153,7 @@ class Model: NSObject {
 
 
     ///
-    func attachOutputsToCaptureSession() {
+    private func attachOutputsToCaptureSession() {
 
         // Attach output to capture session
         if let capturePhotoOutput = capturePhotoOutput {
