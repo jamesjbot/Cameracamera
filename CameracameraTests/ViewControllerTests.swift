@@ -14,10 +14,6 @@ import Bond
 
 class ViewControllerToViewModelTests: XCTestCase {
 
-    //var testModel: Model?
-    //var mockPreview: MockPreview?
-    //var mockWindow: MockWindow?
-
     var viewController: ViewController?
     var viewModel: ViewModelInteractions?
 
