@@ -99,9 +99,10 @@ class ViewController: UIViewController {
 
         super.viewWillLayoutSubviews()
 
-        // Adjust the Video view to the new frame orientation.
-        previewView.frame = self.view.bounds
+        // Refills the frame up to the fullsize.
+        captureVideoPreviewLayer?.frame = self.view.bounds
 
+        // Verify we have a connection before accessing it
         guard let connection = captureVideoPreviewLayer?.connection else {
             return
         }
@@ -121,8 +122,6 @@ class ViewController: UIViewController {
         default:
             break
         }
-        // Refills the frame up to the fullsize.
-        captureVideoPreviewLayer?.frame = self.view.bounds
     }
 
 
