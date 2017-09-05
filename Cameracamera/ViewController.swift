@@ -127,7 +127,7 @@ class ViewController: UIViewController {
 
     // MARK: Normal methods
 
-    func bindViewModel() {
+    private func bindViewModel() {
 
         // When a change is detected on metadata objects, remove the old objects 
         // and draw the new objects on the view.
@@ -148,7 +148,7 @@ class ViewController: UIViewController {
     }
 
 
-    func initializePreviewLayer() {
+    private func initializePreviewLayer() {
 
         _ = viewModel?.attachAVCapturePreview(toReceiver: self)
     }
