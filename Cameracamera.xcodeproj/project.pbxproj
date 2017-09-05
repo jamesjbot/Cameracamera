@@ -22,6 +22,7 @@
 		A755B5201F3A37CB003DB962 /* CameracameraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A755B51F1F3A37CB003DB962 /* CameracameraUITests.swift */; };
 		A75EA5501F50D35D004D42D1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75EA54F1F50D35D004D42D1 /* Constants.swift */; };
 		A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76ED2A91F3BC07B00C2446A /* Model.swift */; };
+		A77AE0781F5EB8C10045680B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A77AE0771F5EB8C10045680B /* README.md */; };
 		A7B53C101F4F393300AE05E2 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */; };
 		A7B53C121F4F962800AE05E2 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B53C111F4F962800AE05E2 /* Bond.framework */; };
 		A7B94C711F5CE970001F2D5D /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B94C701F5CE970001F2D5D /* Mocks.swift */; };
@@ -69,6 +70,7 @@
 		A755B5211F3A37CB003DB962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A75EA54F1F50D35D004D42D1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Assets/Constants.swift; sourceTree = "<group>"; };
 		A76ED2A91F3BC07B00C2446A /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = Model/Model.swift; sourceTree = "<group>"; };
+		A77AE0771F5EB8C10045680B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		A7B53C111F4F962800AE05E2 /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = "DerivedData/Cameracamera/Build/Products/Debug-iphoneos/Bond/Bond.framework"; sourceTree = "<group>"; };
 		A7B94C701F5CE970001F2D5D /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				A75EA54F1F50D35D004D42D1 /* Constants.swift */,
 				A755B4FC1F3A37CB003DB962 /* AppDelegate.swift */,
 				A755B5001F3A37CB003DB962 /* Main.storyboard */,
+				A77AE0771F5EB8C10045680B /* README.md */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				A7DD42D81F5886BC00E97073 /* DetectedObjectOutline.swift in Sources */,
 				A755B4FD1F3A37CB003DB962 /* AppDelegate.swift in Sources */,
 				A76ED2AA1F3BC07B00C2446A /* Model.swift in Sources */,
+				A77AE0781F5EB8C10045680B /* README.md in Sources */,
 				A718539A1F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
