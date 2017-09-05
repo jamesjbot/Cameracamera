@@ -118,7 +118,7 @@ class Model: NSObject {
         let desiredTypes = [AVMetadataObjectTypeQRCode,AVMetadataObjectTypeAztecCode]
 
         for type in desiredTypes {
-            if (captureMetaDataOutput?.availableMetadataObjectTypes.contains(where: {($0 as! String) == type}))! {
+            if (captureMetaDataOutput?.availableMetadataObjectTypes.contains(where: {($0 as? String) == type})) ?? false {
                 captureMetaDataOutput?.metadataObjectTypes.append(type)
             }
         }
@@ -213,9 +213,9 @@ extension Model: AVCapturePhotoCaptureDelegate {
 extension Model: AVCaptureMetadataOutputObjectsDelegate {
 
     /// This method captures metadata objects when they are detected from the Apple AVFoundation framework.
-    func captureOutput(_ captureOutput: AVCaptureOutput!,
-                       didOutputMetadataObjects metadataObjects: [Any]!,
-                       from connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput,
+                       didOutputMetadataObjects metadataObjects: [Any],
+                       from connection: AVCaptureConnection) {
         
         var accumulatedAVMetadata = [MetaDataObjectAndPayload]()
 
