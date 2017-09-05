@@ -246,7 +246,7 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
 
         self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
 
-        let photo: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let photo: UIImage = UIGraphicsGetImageFromCurrentImageContext() ?? UIImage()
         UIGraphicsEndImageContext()
         return photo
     }
