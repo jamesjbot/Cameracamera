@@ -10,6 +10,7 @@
 		5417F88F3B828427BDE04EBA /* Pods_Cameracamera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30227C38ED37AD6D874CB78 /* Pods_Cameracamera.framework */; };
 		A71853981F4FB5C7006269CC /* ModelInteractionsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853971F4FB5C7006269CC /* ModelInteractionsProtocol.swift */; };
 		A718539A1F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71853991F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift */; };
+		A71860CF1F5F644F00F0B815 /* CameraCamera.png in Resources */ = {isa = PBXBuildFile; fileRef = A71860CE1F5F644F00F0B815 /* CameraCamera.png */; };
 		A724E8141F425B30001649CA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A724E8131F425B30001649CA /* ViewModel.swift */; };
 		A725B2FD1F4A7A910027B153 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A725B2FC1F4A7A910027B153 /* AlertWindow.swift */; };
 		A74698791F5BAA1200DB18A3 /* AVCapturePreviewAndSavedPhotoProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74698781F5BAA1200DB18A3 /* AVCapturePreviewAndSavedPhotoProtocols.swift */; };
@@ -26,6 +27,7 @@
 		A7B53C101F4F393300AE05E2 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */; };
 		A7B53C121F4F962800AE05E2 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B53C111F4F962800AE05E2 /* Bond.framework */; };
 		A7B94C711F5CE970001F2D5D /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B94C701F5CE970001F2D5D /* Mocks.swift */; };
+		A7D4606E1F5F3D9E00AC4A81 /* Main Image.png in Resources */ = {isa = PBXBuildFile; fileRef = A7D4606D1F5F3D9E00AC4A81 /* Main Image.png */; };
 		A7DD42D81F5886BC00E97073 /* DetectedObjectOutline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DD42D71F5886BC00E97073 /* DetectedObjectOutline.swift */; };
 		A7F8AABD1F5C0C590052B036 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B53C111F4F962800AE05E2 /* Bond.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
@@ -52,6 +54,7 @@
 		91321786F397197D8E6FE6C5 /* Pods-Cameracamera.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cameracamera.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cameracamera/Pods-Cameracamera.debug.xcconfig"; sourceTree = "<group>"; };
 		A71853971F4FB5C7006269CC /* ModelInteractionsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelInteractionsProtocol.swift; path = Model/ModelInteractionsProtocol.swift; sourceTree = "<group>"; };
 		A71853991F4FB5FD006269CC /* ViewModelInteractionsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModelInteractionsProtocol.swift; path = ViewModel/ViewModelInteractionsProtocol.swift; sourceTree = "<group>"; };
+		A71860CE1F5F644F00F0B815 /* CameraCamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraCamera.png; sourceTree = "<group>"; };
 		A724E8131F425B30001649CA /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModel.swift; path = ViewModel/ViewModel.swift; sourceTree = "<group>"; };
 		A725B2FC1F4A7A910027B153 /* AlertWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertWindow.swift; path = ViewController/AlertWindow.swift; sourceTree = "<group>"; };
 		A74698781F5BAA1200DB18A3 /* AVCapturePreviewAndSavedPhotoProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AVCapturePreviewAndSavedPhotoProtocols.swift; path = ViewController/AVCapturePreviewAndSavedPhotoProtocols.swift; sourceTree = "<group>"; };
@@ -74,6 +77,7 @@
 		A7B53C0F1F4F393300AE05E2 /* ViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
 		A7B53C111F4F962800AE05E2 /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = "DerivedData/Cameracamera/Build/Products/Debug-iphoneos/Bond/Bond.framework"; sourceTree = "<group>"; };
 		A7B94C701F5CE970001F2D5D /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		A7D4606D1F5F3D9E00AC4A81 /* Main Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main Image.png"; sourceTree = "<group>"; };
 		A7DD42D71F5886BC00E97073 /* DetectedObjectOutline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetectedObjectOutline.swift; path = ViewModel/DetectedObjectOutline.swift; sourceTree = "<group>"; };
 		E30227C38ED37AD6D874CB78 /* Pods_Cameracamera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cameracamera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -191,6 +195,8 @@
 		A7E093091F5EAE2600032279 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				A71860CE1F5F644F00F0B815 /* CameraCamera.png */,
+				A7D4606D1F5F3D9E00AC4A81 /* Main Image.png */,
 				A755B50B1F3A37CB003DB962 /* Info.plist */,
 				A755B5081F3A37CB003DB962 /* LaunchScreen.storyboard */,
 				A755B5061F3A37CB003DB962 /* Assets.xcassets */,
@@ -333,8 +339,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A755B50A1F3A37CB003DB962 /* LaunchScreen.storyboard in Resources */,
+				A7D4606E1F5F3D9E00AC4A81 /* Main Image.png in Resources */,
 				A755B5071F3A37CB003DB962 /* Assets.xcassets in Resources */,
 				A755B5021F3A37CB003DB962 /* Main.storyboard in Resources */,
+				A71860CF1F5F644F00F0B815 /* CameraCamera.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
