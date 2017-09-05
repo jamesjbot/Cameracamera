@@ -23,9 +23,10 @@ enum SwiftyBeaverConstants {
     static let PathExtension = "log"
 }
 
+enum DetectedObjectOutlineConstants {
+    static let margin = CGFloat(10.0)
+    static let originMeasurementErrorRange = CGFloat(0.001) // This should be a % of the view window pixels.
+    static let screenWidth = UIScreen.main.bounds.width
+    static let timeToKeepAlive = 0.2
+}
 
-//1 pull all constants
-//2 identify any erros that are not being caught
-//3 are any ! being used in inappropriate places.
-//4 are you missing comments
-//

@@ -65,11 +65,7 @@ protocol SelfTerminatingDrawableOutline {
 class DetectedObjectOutline: Hashable, CustomStringConvertible {
 
     // MARK: Constants
-    fileprivate let MARGIN = CGFloat(10.0)
-    private let ORIGIN_MEASUREMENT_ERROR_RANGE = CGFloat(0.001) // This should be a % of the view window pixels.
-    private let SCREENWIDTH = UIScreen.main.bounds.width
-    fileprivate let TIME_TO_KEEP_ALIVE = 0.2
-
+    
     fileprivate let viewModelContainingThis: OutlineManager?
 
     
@@ -204,7 +200,10 @@ extension DetectedObjectOutline {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.layoutMargins = UIEdgeInsets(top: MARGIN, left: MARGIN, bottom: MARGIN, right: MARGIN)
+        stackView.layoutMargins = UIEdgeInsets(top: DetectedObjectOutlineConstants.margin,
+                                               left: DetectedObjectOutlineConstants.margin,
+                                               bottom: DetectedObjectOutlineConstants.margin,
+                                               right: DetectedObjectOutlineConstants.margin)
         stackView.isLayoutMarginsRelativeArrangement = true
         if let bounds = uiViewRepresentation?.bounds {
             stackView.frame = bounds
@@ -243,7 +242,9 @@ extension DetectedObjectOutline {
         }
 
         DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(withTimeInterval: self.TIME_TO_KEEP_ALIVE, repeats: true, block: timerCompletionBlock)
+            self.timer = Timer.scheduledTimer(withTimeInterval: DetectedObjectOutlineConstants.timeToKeepAlive,
+                                              
+                                              repeats: true, block: timerCompletionBlock)
         }
     }
 }
