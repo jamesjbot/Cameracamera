@@ -87,10 +87,10 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
 
+        super.viewWillAppear(animated)
+
         // Format size of UIButton
         onTapTakePhoto.sizeToFit()
-
-        super.viewWillAppear(animated)
 
         // Binding to the view model
         bindViewModel()
