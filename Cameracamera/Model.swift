@@ -38,8 +38,6 @@ class Model: NSObject {
     // MARK: -
     // MARK: Constants
 
-    fileprivate let SCALE = CGFloat(1.0)
-
     // MARK: -
     // MARK: Variables
 
@@ -201,7 +199,7 @@ extension Model: AVCapturePhotoCaptureDelegate {
         }
 
         // Create a UIImage with our data
-        let capturedImage = UIImage.init(data: imageData, scale: SCALE)
+        let capturedImage = UIImage.init(data: imageData, scale: Constants.AVCAPTURESCALE)
         if let image = capturedImage {
             // Save image to photoalbum.
             // The user will be notified with a camera picture taking sound this is standard.
@@ -277,10 +275,22 @@ extension Model: ModelInteractions {
     internal func savePhoto(delegate viewcontrollerNeedsAnImage: AVCapturePhotoCaptureDelegate?,
                             completion: ((Bool,Error?)->())? = nil ) {
 
+        //        //Make sure our out is open
+        //
+        completionHandlerForSavedPhoto = completion
+
+        // Take a picture without QRCodes.
+
+        let videoOrientation = determineVideoOrientation()
+
+        // Set the video orientation
+        if let connection: AVCaptureConnection = capturePhotoOutput?.connections.first as? AVCaptureConnection {
+            connection.videoOrientation = videoOrientation
+        }
 
         // Make sure our output is open
-        guard let capturePhotoOutput = self.capturePhotoOutput else {
-            currentError = ModelError.CaptureOutputNotOpen
+        guard let capturePhotoOutput = capturePhotoOutput else {
+            completion?(false,ModelError.CaptureOutputNotOpen)
             return
         }
 
@@ -295,8 +305,33 @@ extension Model: ModelInteractions {
         photoSettings.flashMode = .off
 
         // Call the capture photo and register to receive captured photo
-        capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
-        
+        if viewcontrollerNeedsAnImage != nil {
+            capturePhotoOutput.capturePhoto(with: photoSettings, delegate: viewcontrollerNeedsAnImage!)
+        } else {
+            capturePhotoOutput.capturePhoto(with: photoSettings, delegate: self)
+        }
     }
+
+
+    private func determineVideoOrientation() -> AVCaptureVideoOrientation {
+
+        let orientation = UIDevice.current.orientation
+        var videoOrientation: AVCaptureVideoOrientation?
+        switch orientation {
+        case .landscapeLeft:
+            videoOrientation = AVCaptureVideoOrientation.landscapeRight
+        case .landscapeRight:
+            videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+        case .portrait:
+            videoOrientation = AVCaptureVideoOrientation.portrait
+        case .portraitUpsideDown:
+            videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
+        default:
+            videoOrientation = AVCaptureVideoOrientation.portrait
+        }
+        return videoOrientation!
+
+    }
+
 }
 

@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 
-struct Constants {
+enum Constants {
     static let offset = CGFloat(20)
     static let scaling = CGFloat(1.15)
     static let ourBorderColor = UIColor.red.cgColor
     static let ourBorderWidth = CGFloat(3.0)
+    static let AVCAPTURESCALE = CGFloat(1.0)
 }

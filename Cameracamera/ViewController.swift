@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import SwiftyBeaver
 
-// MARK: -
+// MARK: - ViewController
 
 /// This general architecture is once the view/viewcontroller, viewmodel, and model are hooked up by
 /// reactive binding thru two variables (one in viewmodel, and one in the model).
@@ -25,6 +25,8 @@ class ViewController: UIViewController {
 
     // MARK: Constants
 
+    fileprivate let FULL_PIXEL_SIZE = CGFloat(0.0)
+
     // MARK: Variables
 
     public var lastDrawnViews = [UIView]()
@@ -34,6 +36,16 @@ class ViewController: UIViewController {
     fileprivate var captureVideoPreviewLayer: AVCaptureVideoPreviewLayer?
 
     // MARK: IBOutlets
+
+    @IBOutlet weak var outlineStoryBoardView: UIView!
+    
+    @IBOutlet weak var feedbackImageView: UIImageView!
+
+    @IBOutlet weak var takePhoto: UIButton!
+
+    @IBOutlet weak var saveQRCodesLabel: UILabel!
+
+    @IBOutlet weak var saveQRCodesToggle: UISwitch!
 
     @IBOutlet weak var previewView: UIView!
 
@@ -45,7 +57,12 @@ class ViewController: UIViewController {
     // MARK: IBAction
 
     @IBAction func takePhoto(_ sender: Any) {
-        viewModel?.savePhoto(nil)
+        if saveQRCodesToggle.isOn {
+            takePhotoWithQRCodesOverlaid()
+        }
+        else {
+            viewModel?.savePhoto(delegate: nil, completion: nil)
+        }
     }
 
 
@@ -60,6 +77,8 @@ class ViewController: UIViewController {
 
         // Setup the video preview
         initializePreviewLayer()
+
+        feedbackImageView.contentMode = .scaleAspectFill
 
         super.viewDidLoad()
 
@@ -77,6 +96,31 @@ class ViewController: UIViewController {
         bindViewModel()
     }
 
+    override func viewWillLayoutSubviews() {
+
+        previewView.frame = self.view.bounds
+
+        let orientation: UIDeviceOrientation = UIDevice.current.orientation
+
+        /// Rear facing camera flips the orientaion
+        switch orientation {
+        case .landscapeLeft:
+            captureVideoPreviewLayer?.connection.videoOrientation = .landscapeRight
+        case .landscapeRight:
+            captureVideoPreviewLayer?.connection.videoOrientation = .landscapeLeft
+        case .portrait:
+            captureVideoPreviewLayer?.connection.videoOrientation = .portrait
+        case .portraitUpsideDown:
+            captureVideoPreviewLayer?.connection.videoOrientation = .portraitUpsideDown
+        default:
+            break
+        }
+        // Refills the frame up to the fullsize.
+        captureVideoPreviewLayer?.frame = self.view.bounds
+    }
+
+
+    // MARK: Normal methods
 
     func bindViewModel() {
 
@@ -92,7 +136,8 @@ class ViewController: UIViewController {
             guard newViews.count > 0 else {
                 return
             }
-            self.attach(these: newViews, to: self.view.window!)
+
+            self.attach(these: newViews, to: self.outlineStoryBoardView)
         }
     }
 
@@ -101,8 +146,83 @@ class ViewController: UIViewController {
 
         _ = viewModel?.attachAVCapturePreview(toReceiver: self)
     }
+
+    
+    /**
+     Takes a pictures with QRCodes overlaid and saves it to the photo album roll
+     */
+    private func takePhotoWithQRCodesOverlaid() {
+
+        viewModel?.savePhoto(delegate: self) {
+            success, image in
+            guard success else {
+                return
+            }
+        }
+    }
 }
 
+
+// MARK: - AVCapturePhotoCaptureDelegate
+
+extension ViewController: AVCapturePhotoCaptureDelegate {
+
+    /// This method receives photo captured by "Take Photo" button.
+    func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
+
+        let currentError: Error?
+
+        // Make sure there were no errors and the buffer was populated
+        guard error == nil, let photoSampleBuffer = photoSampleBuffer else {
+            currentError = ModelError.PhotoSampleBufferNil
+            return
+        }
+
+        // Convert photo buffer to jpeg
+        guard let imageData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer) else {
+            currentError = ModelError.JPEGPhotoRepresentationError
+            return
+        }
+
+        // Create a UIImage with our data
+        let capturedImage = UIImage.init(data: imageData, scale: Constants.AVCAPTURESCALE)
+
+        self.feedbackImageView.image = capturedImage
+        self.feedbackImageView.isHidden = false
+
+        // Hide UI elements
+        self.saveQRCodesToggle.isHidden = true
+        self.saveQRCodesLabel.isHidden = true
+
+        // Creates a UIImage
+
+        // Render view to an image
+        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.isOpaque, self.FULL_PIXEL_SIZE )
+
+        self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+
+        let photo : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        // Reveal onscreen ui elements
+        self.saveQRCodesToggle.isHidden = false
+        self.saveQRCodesLabel.isHidden = false
+        self.takePhoto.isHidden = false
+        self.feedbackImageView.isHidden = true
+
+        // Save image to photoalbum.
+        // The user will be notified with a camera picture taking sound this is standard.
+        UIImageWriteToSavedPhotosAlbum(photo, nil, nil, nil)
+        if #available(iOS 9.0, *) {
+            AudioServicesPlaySystemSoundWithCompletion(SystemSoundID(1108), nil)
+        } else {
+            AudioServicesPlaySystemSound(1108)
+        }
+    }
+}
+
+
+// MARK: - AlertWindowDisplaying
 
 extension ViewController: AlertWindowDisplaying {
 
@@ -115,15 +235,7 @@ extension ViewController: AlertWindowDisplaying {
 }
 
 
-extension ViewController {
-
-    fileprivate func attach(these outlines: [UIView], to superView: UIView) {
-        DispatchQueue.main.async {
-            let _ = outlines.map { superView.addSubview($0) }
-        }
-    }
-}
-
+// MARK: - AVCapturePreviewReceiver
 extension ViewController: AVCapturePreviewReceiver {
 
     // Add the video preview layer as a sublayer to IBOutlet previewView
@@ -136,7 +248,7 @@ extension ViewController: AVCapturePreviewReceiver {
         }
 
         // Set previewLayer to our viewcontroller bounds
-        captureVideoPreviewLayer?.frame = mainView.layer.bounds
+        captureVideoPreviewLayer?.frame = previewView.layer.bounds
 
         // Attach the captureVideoPreview to our previewView
         previewView.layer.addSublayer(captureVideoPreviewLayer!)
@@ -144,6 +256,19 @@ extension ViewController: AVCapturePreviewReceiver {
     }
 }
 
+
+// MARK: - Attaching outlines to view
+extension ViewController {
+
+    fileprivate func attach(these outlines: [UIView], to superView: UIView) {
+        DispatchQueue.main.async {
+            let _ = outlines.map { superView.addSubview($0) }
+        }
+    }
+}
+
+
+// MARK: - Helper Class
 
 class DependencyInjector {
 
