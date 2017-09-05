@@ -25,7 +25,6 @@ class ViewController: UIViewController {
 
     // MARK: Constants
 
-    fileprivate let FULL_PIXEL_SIZE = CGFloat(0.0)
 
     // MARK: Variables
 
@@ -103,18 +102,22 @@ class ViewController: UIViewController {
         // Adjust the Video view to the new frame orientation.
         previewView.frame = self.view.bounds
 
+        guard let connection = captureVideoPreviewLayer?.connection else {
+            return
+        }
+
         let orientation: UIDeviceOrientation = UIDevice.current.orientation
 
         /// Rear facing camera flips the orientaion
         switch orientation {
         case .landscapeLeft:
-            captureVideoPreviewLayer?.connection.videoOrientation = .landscapeRight
+            connection.videoOrientation = .landscapeRight
         case .landscapeRight:
-            captureVideoPreviewLayer?.connection.videoOrientation = .landscapeLeft
+            connection.videoOrientation = .landscapeLeft
         case .portrait:
-            captureVideoPreviewLayer?.connection.videoOrientation = .portrait
+            connection.videoOrientation = .portrait
         case .portraitUpsideDown:
-            captureVideoPreviewLayer?.connection.videoOrientation = .portraitUpsideDown
+            connection.videoOrientation = .portraitUpsideDown
         default:
             break
         }
