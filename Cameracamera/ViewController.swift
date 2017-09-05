@@ -12,11 +12,11 @@ import SwiftyBeaver
 
 // MARK: - ViewController
 
-/// This general architecture is once the view/viewcontroller, viewmodel, and model are hooked up by
+/// The general architecture is once the view/viewcontroller, viewmodel, and model are hooked up by
 /// reactive binding thru two variables (one in viewmodel, and one in the model).
 /// All metadata objects detected by the model will be passed up to the viewmodel, where 
 /// the viewmodel will monitor which metadata objects are currently on screen.
-/// The viewmodel will then pass these views to the view/viewcontroller for presentation.
+/// The viewmodel will then pass these views (via reactive binding) to the view/viewcontroller for presentation.
 /// The outline objects have a "time to live" after the outline's time is up,
 /// the outline will remove itself from the super view and from the viewmodel.
 
@@ -98,6 +98,9 @@ class ViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
 
+        super.viewWillLayoutSubviews()
+
+        // Adjust the Video view to the new frame orientation.
         previewView.frame = self.view.bounds
 
         let orientation: UIDeviceOrientation = UIDevice.current.orientation
