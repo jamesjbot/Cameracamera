@@ -177,8 +177,7 @@ extension ViewModel: ViewModelInteractions {
      Tell the model to save photo of the metadata without markup
      - Parameter completion: A Completion handler to call after we initiated the
      save.
-     - Attention: **This will not save the outliens.**
-     - ToDo: Implement a version of this to save outlines too.
+     This method will save outlines with the image when you supply a callback delegate to handle the still capture of the image. This delegate must ultimately handle the image and combine it with the outlines.
      */
     internal func savePhoto(delegate: AVCapturePhotoCaptureDelegate?,
                             completion: ( (Bool,Error?)->() )? = nil) {
