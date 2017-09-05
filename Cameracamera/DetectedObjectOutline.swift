@@ -11,8 +11,7 @@ import UIKit
 import AVFoundation
 import SwiftyBeaver
 
-// MARK: -
-// Helper Struct
+// MARK: - Helper Struct
 // This allows us to logically pass around qr codes and their position
 struct DetectedObjectCharacteristics: Equatable {
 
@@ -52,9 +51,9 @@ struct DetectedObjectCharacteristics: Equatable {
 protocol SelfTerminatingDrawableOutline {
 
     var characteristics: DetectedObjectCharacteristics? {get}
+    var decodedPayload: String {get}
     var keepAlive: Bool {get set}
     var uiViewRepresentation: UIView? {get}
-    var decodedPayload: String {get}
     func isSimilar(toCharacteristics: DetectedObjectCharacteristics) -> Bool
 }
 
