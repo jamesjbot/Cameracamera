@@ -234,8 +234,6 @@ extension Model: AVCaptureMetadataOutputObjectsDelegate {
             let dataAndPayload = MetaDataObjectAndPayload(bounds: convertedObject.bounds,
                                                           payload: metadataObject.stringValue,
                                                           type: convertedObject.type)
-         //       MetaDataObjectAndPayload(bounds: convertedObject,
-         //                                                 payload: metadataObject.stringValue)
 
             accumulatedAVMetadata.append(dataAndPayload)
         }
@@ -275,15 +273,13 @@ extension Model: ModelInteractions {
     internal func savePhoto(delegate viewcontrollerNeedsAnImage: AVCapturePhotoCaptureDelegate?,
                             completion: ((Bool,Error?)->())? = nil ) {
 
-        //        //Make sure our out is open
-        //
         completionHandlerForSavedPhoto = completion
 
         // Take a picture without QRCodes.
 
         let videoOrientation = determineVideoOrientation()
 
-        // Set the video orientation
+        // Set the video orientation on the input
         if let connection: AVCaptureConnection = capturePhotoOutput?.connections.first as? AVCaptureConnection {
             connection.videoOrientation = videoOrientation
         }
