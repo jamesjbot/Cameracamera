@@ -13,6 +13,7 @@ import SwiftyBeaver
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    
     var window: UIWindow?
 
     override init() {
@@ -64,8 +65,8 @@ extension AppDelegate {
 
         let fileManager = FileManager.default
         let cachedirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)
-        var swiftybeaverPath = cachedirectory[0].appendingPathComponent("swiftybeaver")
-        swiftybeaverPath = swiftybeaverPath.appendingPathExtension("log")
+        var swiftybeaverPath = cachedirectory[0].appendingPathComponent(SwiftyBeaverConstants.PathComponent)
+        swiftybeaverPath = swiftybeaverPath.appendingPathExtension(SwiftyBeaverConstants.PathExtension)
         try? fileManager.removeItem(at: swiftybeaverPath)
     }
 

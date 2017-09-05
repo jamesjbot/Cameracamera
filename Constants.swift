@@ -17,3 +17,15 @@ enum Constants {
     static let avCaptureScale = CGFloat(1.0)
     static let fullPixelSize = CGFloat(0.0)
 }
+
+enum SwiftyBeaverConstants {
+    static let PathComponent = "swiftybeaver"
+    static let PathExtension = "log"
+}
+
+
+//1 pull all constants
+//2 identify any erros that are not being caught
+//3 are any ! being used in inappropriate places.
+//4 are you missing comments
+//
