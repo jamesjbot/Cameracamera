@@ -10,14 +10,6 @@ import UIKit
 import AVFoundation
 import Bond
 
-// MARK: -
-
-enum ModelError: Error {
-    case CaptureOutputNotOpen
-    case PhotoSampleBufferNil
-    case InitializeCaptureInputError
-    case JPEGPhotoRepresentationError
-}
 
 // MARK: -
 

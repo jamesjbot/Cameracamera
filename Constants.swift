@@ -30,3 +30,9 @@ enum DetectedObjectOutlineConstants {
     static let timeToKeepAlive = 0.2
 }
 
+enum ModelError: Error {
+    case CaptureOutputNotOpen
+    case PhotoSampleBufferNil
+    case InitializeCaptureInputError
+    case JPEGPhotoRepresentationError
+}
