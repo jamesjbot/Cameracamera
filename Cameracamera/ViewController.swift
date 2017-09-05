@@ -169,6 +169,30 @@ class ViewController: UIViewController {
 }
 
 
+// MARK: - AlertWindowDisplaying
+
+extension ViewController: AlertWindowDisplaying {
+
+    func display(error: String) -> Bool {
+        DispatchQueue.main.async {
+            self.displayAlertWindow(title: "Error", msg: error)
+        }
+        return true
+    }
+}
+
+
+// MARK: - Attaching outlines to view
+extension ViewController {
+
+    fileprivate func attach(theseOutlines outlines: [UIView], to superView: UIView) {
+        DispatchQueue.main.async {
+            let _ = outlines.map { superView.addSubview($0) }
+        }
+    }
+}
+
+
 // MARK: - AVCapturePhotoCaptureDelegate
 
 extension ViewController: AVCapturePhotoCaptureDelegate {
@@ -228,19 +252,6 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
 }
 
 
-// MARK: - AlertWindowDisplaying
-
-extension ViewController: AlertWindowDisplaying {
-
-    func display(error: String) -> Bool {
-        DispatchQueue.main.async {
-            self.displayAlertWindow(title: "Error", msg: error)
-        }
-        return true
-    }
-}
-
-
 // MARK: - AVCapturePreviewReceiver
 extension ViewController: AVCapturePreviewReceiver {
 
@@ -259,17 +270,6 @@ extension ViewController: AVCapturePreviewReceiver {
         // Attach the captureVideoPreview to our previewView
         previewView.layer.addSublayer(captureVideoPreviewLayer!)
         return self
-    }
-}
-
-
-// MARK: - Attaching outlines to view
-extension ViewController {
-
-    fileprivate func attach(theseOutlines outlines: [UIView], to superView: UIView) {
-        DispatchQueue.main.async {
-            let _ = outlines.map { superView.addSubview($0) }
-        }
     }
 }
 
