@@ -141,7 +141,7 @@ class ViewModel {
                  into: dictionaryOfDistinctStringPayload)
 
         // Add the view to the queue for display in the viewcontroller
-        lastOutlineViews.value.append(targetOutline.uiViewRepresentation!)
+        lastOutlineViews.value.append(targetOutline.uiViewRepresentation ?? UIView())
 
         return targetOutline
     }
@@ -193,26 +193,30 @@ extension ViewModel: OutlineManager {
      - Returns: A boolean indication success 'true' or failure 'false'
      - Note: Currently any qrcode with the exact same payload will be save in the exact same sub-collection
      */
-    internal func deleteDetectedOutline(_ detectedOuline: SelfTerminatingDrawableOutline) -> Bool {
+    internal func deleteDetectedOutline(_ detectedOutline: SelfTerminatingDrawableOutline) -> Bool {
 
         // Make sure the array containing the duplicate string payloads exists
-        guard let array = dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload] else {
+        guard let array = dictionaryOfDistinctStringPayload[detectedOutline.decodedPayload] else {
             return false
         }
 
         // Remove the whole array from the dictionary if there is only 1 outline in it
         if (array.count) == 1 {
-            dictionaryOfDistinctStringPayload.removeValue(forKey: detectedOuline.decodedPayload)
+            dictionaryOfDistinctStringPayload.removeValue(forKey: detectedOutline.decodedPayload)
             return true
         }
 
+        guard let theseCharacteristics = detectedOutline.characteristics else {
+            return false
+        }
+        
         // Remove the exact outline from the multiple same payloads in the dictionary
-        let closure: (SelfTerminatingDrawableOutline) -> (Bool) = {($0.isSimilar(toCharacteristics: detectedOuline.characteristics!))}
+        let closure: (SelfTerminatingDrawableOutline) -> (Bool) = {($0.isSimilar(toCharacteristics: theseCharacteristics))}
 
         // Remove the outline at the desired position
-        if let index = dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload]?
+        if let index = dictionaryOfDistinctStringPayload[detectedOutline.decodedPayload]?
             .index(where: closure) {
-            dictionaryOfDistinctStringPayload[detectedOuline.decodedPayload]?.remove(at: index)
+            dictionaryOfDistinctStringPayload[detectedOutline.decodedPayload]?.remove(at: index)
             return true
         }
         return false
