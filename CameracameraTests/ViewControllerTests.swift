@@ -57,18 +57,18 @@ class ViewControllerToViewModelTests: XCTestCase {
 //        XCTAssert((count + 1) == (viewController?.previewView.subviews.count)!)
 //    }
 
-    func testsavePhoto() {
+    func testsavePhotoWithNoQRCodes() {
         //_ completion: ((Bool)->())?
         // Given:
         let promise = XCTestExpectation(description: "Return with true")
         var shouldBeTree = false
-        let handler: ((Bool) -> ())? = {
-            result in
+        let handler: ((Bool,Error?) -> ())? = {
+            result, error in
             shouldBeTree = result
             promise.fulfill()
         }
         // When:
-        viewModel?.savePhoto(handler)
+        viewModel?.savePhoto(delegate: nil, completion: handler)
         // Then:
 
         wait(for: [promise], timeout: 10.0)

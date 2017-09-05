@@ -106,8 +106,8 @@ class ViewModelToModelTests: XCTestCase {
 
         // when:
         var result: Bool?
-        mockModel?.savePhoto {
-            success -> () in
+        mockModel?.savePhoto(delegate: nil) {
+            success,error -> () in
             result = success
             expectation.fulfill()
         }

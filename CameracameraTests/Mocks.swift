@@ -26,10 +26,11 @@ class MockModel: ModelInteractions, AVCapturePreviewProvider {
         return receiver
     }
     
-    func savePhoto(_ completion: ((Bool)->())? = nil ) {
+    internal func savePhoto(delegate viewcontrollerNeedsAnImage: AVCapturePhotoCaptureDelegate?,
+                            completion: ((Bool,Error?)->())? = nil ) {
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) {
             timer in
-            completion?(true)
+            completion?(true,nil)
         }
     }
 
@@ -57,10 +58,11 @@ class MockViewModel: ViewModelInteractions, AVCapturePreviewProvider {
     var model = MockModel()
     var lastOutlineViews = Observable<[UIView]>([])
     var outlineManager: OutlineManager?
-    func savePhoto(_ completion: ((Bool)->())?) {
+    internal func savePhoto(delegate viewcontrollerNeedsAnImage: AVCapturePhotoCaptureDelegate?,
+                            completion: ((Bool,Error?)->())? = nil ) {
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) {
             _ in
-            completion?(true)
+            completion?(true,nil)
         }
     }
     func attachAVCapturePreview(toReceiver: AVCapturePreviewReceiver) -> AVCapturePreviewReceiver? {
