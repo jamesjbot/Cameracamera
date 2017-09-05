@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 enum Constants {
     static let offset = CGFloat(20)
@@ -36,3 +37,16 @@ enum ModelError: Error {
     case InitializeCaptureInputError
     case JPEGPhotoRepresentationError
 }
+
+// Specify the types of metadata you want to identify
+struct AcceptableMetadataTypes {
+    static let desiredTypes = [AVMetadataObjectTypeQRCode,AVMetadataObjectTypeAztecCode]
+}
+
+
+
+
+
+
+
+
