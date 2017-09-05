@@ -39,15 +39,6 @@
                                     <constraint firstItem="dJm-95-x9O" firstAttribute="centerX" secondItem="gNN-Cz-b6b" secondAttribute="centerX" id="XGA-Bn-cHK"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dki-GG-ipz">
-                                <rect key="frame" x="101" y="608" width="173" height="39"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
-                                <state key="normal" title="Take Photo">
-                                    <color key="titleColor" red="0.027450980392156862" green="0.43137254901960786" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright © 2017 James Jongs. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sH9-4b-hHc">
                                 <rect key="frame" x="10" y="646" width="355" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -58,13 +49,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="sH9-4b-hHc" firstAttribute="width" secondItem="QG9-W4-X21" secondAttribute="width" constant="-20" id="7U7-1P-rbz"/>
-                            <constraint firstItem="Dki-GG-ipz" firstAttribute="centerX" secondItem="QG9-W4-X21" secondAttribute="centerX" id="Bwe-K9-Gc6"/>
                             <constraint firstItem="gNN-Cz-b6b" firstAttribute="centerX" secondItem="QG9-W4-X21" secondAttribute="centerX" id="CWG-0d-SvX"/>
                             <constraint firstItem="gNN-Cz-b6b" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="D2Y-2U-ZOB"/>
                             <constraint firstItem="gNN-Cz-b6b" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="M64-pX-mgQ"/>
                             <constraint firstItem="dJm-95-x9O" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="124" id="XiT-QG-s1K"/>
                             <constraint firstItem="gNN-Cz-b6b" firstAttribute="leading" secondItem="QG9-W4-X21" secondAttribute="leadingMargin" constant="-16" id="ayn-Tw-RIR"/>
-                            <constraint firstAttribute="bottom" secondItem="Dki-GG-ipz" secondAttribute="bottom" constant="20" symbolic="YES" id="byd-Uu-gYV"/>
                             <constraint firstItem="sH9-4b-hHc" firstAttribute="centerX" secondItem="QG9-W4-X21" secondAttribute="centerX" id="jwb-Kg-6ZM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gNN-Cz-b6b" secondAttribute="trailing" constant="-16" id="ljJ-D9-wnK"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="sH9-4b-hHc" secondAttribute="bottom" constant="0.5" id="pCB-8J-ZaO"/>
