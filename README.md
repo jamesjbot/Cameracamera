@@ -50,7 +50,7 @@ Changes are not accepted at this time
 None
 
 ## Change log
-* 05-09-2017 Initial Commit
+* 08-08-2017 Initial Commit
 
 ## License and author info
 All rights reserved
