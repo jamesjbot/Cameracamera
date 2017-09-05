@@ -145,14 +145,10 @@ class ViewModel {
 
         return targetOutline
     }
-
-
-
 }
 
 
-// MARK: -
-// MARK: AVCapturePreviewProvider Extension
+// MARK: - AVCapturePreviewProvider Extension
 
 extension ViewModel: AVCapturePreviewProvider {
 
@@ -168,8 +164,7 @@ extension ViewModel: AVCapturePreviewProvider {
 }
 
 
-// MARK: -
-// MARK: ViewModelInteractions Protocol Extension
+// MARK: - ViewModelInteractions Protocol Extension
 
 extension ViewModel: ViewModelInteractions {
 
@@ -187,8 +182,7 @@ extension ViewModel: ViewModelInteractions {
 }
 
 
-// MARK: -
-// MARK: OutlineManager Protocol Extension
+// MARK: - OutlineManager Protocol Extension
 
 extension ViewModel: OutlineManager {
 
