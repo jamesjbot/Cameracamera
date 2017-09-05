@@ -200,8 +200,6 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
     /// This method receives photo captured by "Take Photo" button.
     func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
 
-        let currentError: Error?
-
         // Make sure there were no errors and the buffer was populated
         guard error == nil, let photoSampleBuffer = photoSampleBuffer else {
             currentError = ModelError.PhotoSampleBufferNil
